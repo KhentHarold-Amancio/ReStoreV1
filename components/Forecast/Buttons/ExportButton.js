@@ -31,9 +31,10 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         marginLeft: 10,
         marginRight: 10,
-        marginBottom: 5,
+        marginTop: 5,
         backgroundColor: COLORS.primary,
         borderRadius: 16,
+
     },
     button: {
 
