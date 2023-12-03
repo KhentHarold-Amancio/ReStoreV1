@@ -1,8 +1,8 @@
 import { View, StyleSheet, StatusBar, Image, TouchableOpacity } from "react-native";
 import React from "react";
 import { Avatar, Button, Card, Text, DataTable } from "react-native-paper";
-import { COLORS, FONT, SIZES } from "../../constants";
-import CustomDivider from "../divider/customdivider";
+import { COLORS, FONT, SIZES } from "../../../constants";
+import CustomDivider from "../../divider/customdivider";
 
 
 const ForecastTable = () => {
@@ -27,10 +27,10 @@ const ForecastTable = () => {
               Month
             </DataTable.Title>
             <DataTable.Title numeric textStyle={styles.titleStyle}>
-              Previous
+              Demand
             </DataTable.Title>
             <DataTable.Title numeric textStyle={styles.titleStyle}>
-              Projected
+              Sales
             </DataTable.Title>
             <DataTable.Title numeric textStyle={styles.titleStyle}>
               % Change
