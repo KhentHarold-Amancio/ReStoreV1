@@ -17,7 +17,7 @@ import styles from "../../components/commons/header/styles/header.style";
 import Summary from "../../components/Homes/cards/Summary";
 import SaleForecastCard from "../../components/Homes/cards/SaleForecastCard";
 import SaleSummaryCard from "../../components/Homes/cards/SaleSummaryCard";
-import ForecastTable from "../../components/Forecast/ForecastTable";
+import ForecastTable from "../../components/Forecast/cards/ForecastTable";
 
 const HomeView = () => {
   const router = useRouter();

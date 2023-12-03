@@ -18,6 +18,7 @@ const COLORS = {
     gray3: "#979699",
     white: "#F3F4F8",
     lightWhite: "#FAFAFC",
+    sunriseOrange: "#EA734E",
     barline: "#F2EDEE",
   };
   
