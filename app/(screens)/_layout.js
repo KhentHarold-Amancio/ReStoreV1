@@ -5,7 +5,6 @@ import {
   BottomNavigation,
   BottomNavigationTab,
 } from "@ui-kitten/components";
-import { SafeAreaView } from "react-native";
 import { COLORS } from "../../constants";
 
 const HomeIcon = (props): IconElement => <Icon {...props} name="home" />;

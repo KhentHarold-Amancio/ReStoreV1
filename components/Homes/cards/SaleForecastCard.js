@@ -11,6 +11,7 @@ const SaleForecastCard = () => {
       <Card.Content contentStyle={styles.container}>
         <Text style={[styles.textStyle, {fontFamily: FONT.bold, fontSize: SIZES.medium}]}>Forecast</Text>
         <Text style={[styles.textStyle, {marginTop: 5, marginBottom: 10, fontFamily: FONT.medium, fontSize: SIZES.xxLarge}]}>$27,XXX.XX</Text>
+        <Text style={[styles.textStyle, {fontFamily: FONT.regular, fontSize: SIZES.small}]}>Data as of XX-XX-XXXX</Text>
       </Card.Content>
       <Image
         source={require("../../../assets/images/forecast/forecast-card-image.png")}

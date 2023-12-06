@@ -19,8 +19,7 @@ import styles from "../../components/commons/header/styles/header.style";
 const ForecastView = () => {
   const router = useRouter();
   return (
-    <SafeAreaView style={{ backgroundColor: COLORS.gray,}}>
-      <ScrollView style={{marginTop: -52}}>
+      <ScrollView style={{backgroundColor: COLORS.gray}}>
       <Stack.Screen
         options={{
           headerStyle: { height: 120, backgroundColor: COLORS.gray },
@@ -46,7 +45,6 @@ const ForecastView = () => {
         <ForecastTable />
         <ExportButton/>
       </ScrollView>
-      </SafeAreaView>
   )
 }
 

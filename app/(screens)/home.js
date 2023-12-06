@@ -23,12 +23,11 @@ const HomeView = () => {
   const router = useRouter();
 
   return (
-    <Layout style={{ flex: 1, backgroundColor: COLORS.white }}>
-      <SafeAreaView>
+    <Layout style={{ flex: 1, backgroundColor: COLORS.gray }}>
       
       <Stack.Screen
         options={{
-          headerStyle: { height: 120, backgroundColor: COLORS.white },
+          headerStyle: { height: 120, backgroundColor: COLORS.gray },
           headerShadowVisible: false,
           headerRight: () => (
             <View style={styles.headerRightContainer}>
@@ -40,7 +39,7 @@ const HomeView = () => {
             marginTop: 10,
             fontSize: 40,
             fontFamily: FONT.bold,
-            color: COLORS.gray,
+            color: COLORS.white,
           },
         }}
       />
@@ -50,7 +49,6 @@ const HomeView = () => {
       <Summary/>
       <ForecastTable/>
       </ScrollView>
-      </SafeAreaView>
     </Layout>
   );
 };

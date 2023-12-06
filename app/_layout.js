@@ -23,7 +23,7 @@ const AppLayout = () => {
 
     if (!fontsLoaded) return null;
     
-    return (
+    return ( 
         <>
         <IconRegistry icons={EvaIconsPack} />
         <ApplicationProvider {...eva} theme={eva.dark}>

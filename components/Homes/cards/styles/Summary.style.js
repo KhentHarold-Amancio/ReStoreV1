@@ -5,7 +5,7 @@ import { COLORS, FONT, SIZES } from "../../../../constants";
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: COLORS.senary,
+    backgroundColor: COLORS.gray2,
     marginHorizontal: 3,
     marginBottom: 10,
     height: SIZES.cardSmallHeight,
@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 12, // Adjust this based on your layout requirements
   },
   textStyle: {
-    color: COLORS.Black,
+    color: COLORS.white,
   },
   contentStyle: {
     width: SIZES.cardSmallWidth,

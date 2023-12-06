@@ -1,10 +1,11 @@
 import { StyleSheet } from "react-native";
+import { COLORS } from "../../../../constants";
 
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: 'white',
+        backgroundColor: COLORS.gray,
         alignItems: 'center',
         justifyContent: 'center',
         marginTop: -100,
@@ -50,12 +51,14 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         fontSize: 18,
         fontWeight: 'bold', // Set the font weight to bold
+        color: COLORS.white
     },
     smallText: {
         paddingTop: 5,
         textAlign: 'center',
         fontSize: 12,
         fontWeight: 'bold', // Set the font weight to bold
+        color: COLORS.white
     },
 });
 
