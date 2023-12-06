@@ -5,7 +5,7 @@ const styles = StyleSheet.create({
   headerRightContainer: {
     flexDirection: "row",
     marginRight: 10,
-    marginTop: 15,
+    marginTop: 10,
   },
   headerStyle: {
     marginTop: 10,

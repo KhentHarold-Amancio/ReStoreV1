@@ -44,7 +44,7 @@ const HomeView = () => {
           },
         }}
       />
-      <ScrollView style={{ marginTop: 15}}>
+      <ScrollView style={{ marginTop: 5 }}>
       <SaleForecastCard onPress={() => router.push('/forecast')}/>
       <SaleSummaryCard onPress={() => router.push('/sales')}/>
       <Text
@@ -55,7 +55,6 @@ const HomeView = () => {
         Summary
       </Text>
       <Summary/>
-      <ForecastTable/>
       </ScrollView>
     </Layout>
   );

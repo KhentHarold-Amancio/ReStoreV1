@@ -20,7 +20,7 @@ const ForecastView = () => {
   return (
       <SafeAreaView style={{ backgroundColor: COLORS.gray }}>
 
-      <ScrollView style={{ marginTop: 10 }}>
+      <ScrollView style={{ }}>
       <Stack.Screen
         options={{
           headerStyle: { height: 120, backgroundColor: COLORS.gray },
