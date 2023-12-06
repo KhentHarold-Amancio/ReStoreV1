@@ -56,6 +56,7 @@ const styles = StyleSheet.create({
     height: "auto",
     justifyContent: "center",
     marginBottom: 10,
+    paddingBottom: 15,
   },
   titleStyle: {
     color: COLORS.white,
