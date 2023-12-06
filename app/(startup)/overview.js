@@ -6,20 +6,52 @@ import {
   TouchableOpacity,
   Linking,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "../../components/commons/overviewcontainer/styles/OverView.style";
 import { Stack, useRouter, useStack } from "expo-router";
 import { COLORS } from "../../constants";
 import { Icon } from "@ui-kitten/components";
+import AsyncStorage from '@react-native-async-storage/async-storage';  // Import AsyncStorage from the correct location
 
 const OverViewCard = () => {
-  const understandButton = () => {
-    router.replace("home");
-  };
   const [termsAgreed, setTermsAgreed] = useState(false);
   const [checked, setChecked] = useState(false);
   const router = useRouter();
-  const understood = false;
+  const storageKey = "ReStore";
+
+  useEffect(() => {
+    // Load the cached value when the component mounts
+    loadTermsAgreed();
+  }, []);
+
+  const loadTermsAgreed = async () => {
+    try {
+      const value = await AsyncStorage.getItem(storageKey);
+      if (value !== null) {
+        router.push("/home");
+        console.log("TermsAgreed loaded from AsyncStorage:", value);
+      } else {
+        console.log("No value found in AsyncStorage for TermsAgreed.");
+      }
+    } catch (error) {
+      console.error("Error loading termsAgreed from AsyncStorage:", error);
+    }
+  };
+
+  const saveTermsAgreed = async (value) => {
+    try {
+      await AsyncStorage.setItem(storageKey, value.toString());
+      console.log("TermsAgreed saved to AsyncStorage:", value);
+    } catch (error) {
+      console.error("Error saving termsAgreed to AsyncStorage:", error);
+    }
+  };
+
+  const understandButton = () => {
+    // Save the termsAgreed status to AsyncStorage
+    saveTermsAgreed(true);
+    router.replace("home");
+  };
 
   const CheckIcon = (props): IconElement => (
     <Icon

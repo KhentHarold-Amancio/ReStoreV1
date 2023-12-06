@@ -42,6 +42,7 @@ const SIZES = {
   cardWidth,
 };
 
+
 const SHADOWS = {
   small: {
     shadowColor: "#000",
