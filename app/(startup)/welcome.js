@@ -8,9 +8,25 @@ import {
   Image,
 } from "react-native";
 import { Stack, router, Link } from "expo-router";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Welcome = () => {
-    
+  const storageKey = "ReStore"
+  const navigateToScreen = async () => {
+    try {
+      const value = await AsyncStorage.getItem(storageKey);
+      if (value !== null) {
+        console.log("loaded from AsyncStorage:", value);
+        router.replace("/home");
+      } else {
+        // If "idulgwapo" is not found, navigate to the overview screen
+        router.push("/(startup)/overview");
+      }
+    } catch (error) {
+      console.error("Error loading idulgwapo from AsyncStorage:", error);
+    }
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.logoContainer}>
@@ -33,7 +49,7 @@ const Welcome = () => {
       <View style={styles.buttonContainer}>
         <TouchableOpacity
           style={styles.customButton}
-          onPress={() => router.push("/startup/overview")}
+          onPress={navigateToScreen}
         >
           <Text style={styles.buttonText}>Get Started</Text>
         </TouchableOpacity>
@@ -41,4 +57,5 @@ const Welcome = () => {
     </SafeAreaView>
   );
 };
+
 export default Welcome;
