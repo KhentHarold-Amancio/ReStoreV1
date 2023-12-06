@@ -13,6 +13,7 @@ const AppLayout = () => {
         ChakraPetchBold: require('../assets/fonts/ChakraPetch-Bold.ttf'),
         ChakraPetchMedium: require('../assets/fonts/ChakraPetch-Medium.ttf'),
         ChakraPetchRegular: require('../assets/fonts/ChakraPetch-Regular.ttf'),
+        ChakraPetchLight: require('../assets/fonts/ChakraPetch-Light.ttf'),
     })
 
     const onLayoutRootView = useCallback(async () => {

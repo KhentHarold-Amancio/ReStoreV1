@@ -33,7 +33,7 @@ const Welcome = () => {
       <View style={styles.buttonContainer}>
         <TouchableOpacity
           style={styles.customButton}
-          onPress={() => router.replace("/startup/overview")}
+          onPress={() => router.push("/startup/overview")}
         >
           <Text style={styles.buttonText}>Get Started</Text>
         </TouchableOpacity>

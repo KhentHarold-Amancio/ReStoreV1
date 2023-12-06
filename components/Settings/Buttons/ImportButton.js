@@ -11,9 +11,10 @@ const ImportButton = () => {
   const Import = () => {
     // You can add more logic or actions here
   };
+
   return (
-    <View>
-      <TouchableOpacity onPress={Import} style={styles.container}>
+    <View style={styles.container}>
+      <TouchableOpacity onPress={Import}>
         <Text style={styles.textProperty}>Import File</Text>
       </TouchableOpacity>
     </View>
@@ -24,19 +25,18 @@ export default ImportButton;
 
 const styles = StyleSheet.create({
   container: {
+    position: "absolute",
+    bottom: 0,
     height: 56,
     width: buttonWidth,
     justifyContent: "center",
     alignItems: "center",
     marginLeft: 10,
     marginRight: 10,
-    marginTop: 5,
     marginBottom: 10,
     backgroundColor: COLORS.primary,
     borderRadius: 16,
-    flexDirection: "column-reverse",
   },
-  button: {},
   textProperty: {
     fontSize: SIZES.smallmedium,
     fontFamily: FONT.medium,

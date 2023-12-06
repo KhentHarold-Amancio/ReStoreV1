@@ -1,5 +1,5 @@
 import { StyleSheet } from "react-native";
-import { COLORS } from "../../../../constants";
+import { COLORS, FONT } from "../../../../constants";
 
 
 const styles = StyleSheet.create({
@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
     buttonText: {
         color: 'white',
         fontSize: 20,
-        fontWeight: 'bold', // Set the font weight to bold
+        fontFamily: FONT.bold// Set the font weight to bold
     },
     logo: {
         marginBottom: 10,
@@ -57,8 +57,8 @@ const styles = StyleSheet.create({
         paddingTop: 5,
         textAlign: 'center',
         fontSize: 12,
-        fontWeight: 'bold', // Set the font weight to bold
-        color: COLORS.white
+        color: COLORS.white,
+        fontFamily: FONT.bold,
     },
 });
 

@@ -2,8 +2,6 @@ import { Dimensions } from "react-native";
 const { width, height } = Dimensions.get("window");
 const cardWidth = width * 0.95;
 const cardHeight = height * 0.2;
-const cardSmallHeight = width * 0.22;
-const cardSmallWidth = width * 0.45;
 
 const COLORS = {
   primary: "#3463E1",
@@ -23,6 +21,7 @@ const COLORS = {
 };
 
 const FONT = {
+  light: "ChakraPetchLight",
   regular: "ChakraPetchRegular",
   medium: "ChakraPetchMedium",
   bold: "ChakraPetchBold",
@@ -31,6 +30,8 @@ const FONT = {
 const SIZES = {
   width,
   height,
+  xxSmall: 6,
+  xsSmall: 8,
   xSmall: 10,
   small: 12,
   smallmedium: 16,
@@ -39,8 +40,6 @@ const SIZES = {
   xxLarge: 32,
   cardHeight,
   cardWidth,
-  cardSmallWidth,
-  cardSmallHeight,
 };
 
 const SHADOWS = {

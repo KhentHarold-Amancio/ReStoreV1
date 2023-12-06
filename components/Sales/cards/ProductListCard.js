@@ -18,7 +18,7 @@ const generateDummyData = (count) => {
   return dummyData;
 };
 
-const ProductListCard = () => {
+const ProductListCard = ({ handleNavigate }) => {
   const items = generateDummyData(3);
   return (
     <Card style={styles.container}>
@@ -37,7 +37,6 @@ const ProductListCard = () => {
               ]}>
               View more
             </Text>
-            <Icon name="chevron-right" size={20} color={COLORS.white} />
             <Icon name="chevron-right" size={20} color={COLORS.white} />
           </View>
         </TouchableOpacity>
@@ -81,7 +80,7 @@ const styles = StyleSheet.create({
     alignContent: "center",
     backgroundColor: COLORS.gray2,
     marginHorizontal: 10,
-    marginBottom: 10,
+    marginBottom: 15,
     height: "auto",
     width: SIZES.cardWidth,
     flexDirection: "column",
@@ -98,16 +97,19 @@ const styles = StyleSheet.create({
     fontFamily: FONT.bold,
     justifyContent: "center",
     fontSize: SIZES.medium,
+    marginHorizontal: 5,
   },
   titleContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignContent: "center",
     padding: 10,
+    marginHorizontal: 5,
   },
   textStyle: {
     color: COLORS.white,
     fontFamily: FONT.bold,
+    marginHorizontal: 5,
   },
   viewDetails: {
     flexDirection: "row",

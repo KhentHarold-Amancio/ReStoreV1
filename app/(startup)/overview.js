@@ -10,27 +10,32 @@ import React, { useState } from "react";
 import styles from "../../components/commons/overviewcontainer/styles/OverView.style";
 import { Stack, useRouter, useStack } from "expo-router";
 import { COLORS } from "../../constants";
-import {
-  Icon,
-} from "@ui-kitten/components";
-
-const CheckIcon = (props): IconElement => (
-  <Icon {...props} name="checkmark-square-2" />
-);
+import { Icon } from "@ui-kitten/components";
 
 const OverViewCard = () => {
   const understandButton = () => {
     router.replace("home");
   };
   const [termsAgreed, setTermsAgreed] = useState(false);
+  const [checked, setChecked] = useState(false);
   const router = useRouter();
   const understood = false;
 
-  const handleNavigate = () => {
-      <Link
-      replace
-      href="/home" />
-  }
+  const CheckIcon = (props): IconElement => (
+    <Icon
+      {...props}
+      name="checkmark-square-2"
+      style={{
+        width: 30,
+        height: 30,
+        tintColor: COLORS.white,
+        backgroundColor: 'transparent',
+      }}
+      fill= {checked ? COLORS.primary : COLORS.white}
+      onPress={() => [setChecked((prevChecked) => !prevChecked), toggleTermsAgreement()]}
+    />
+  );
+
 
   const toggleTermsAgreement = () => {
     setTermsAgreed(!termsAgreed);
@@ -75,17 +80,19 @@ const OverViewCard = () => {
             </Text>
           </ScrollView>
         </View>
-        <View style={styles.checkboxContainer}>
-          <TouchableOpacity onPress={toggleTermsAgreement}>
-          </TouchableOpacity>
+        <View style={[styles.checkboxContainer]}>
           <Text style={styles.term}>
             I agree with the Terms of use and Privacy policy.
           </Text>
+
+            <TouchableOpacity onPress={toggleTermsAgreement}>
+              <CheckIcon />
+            </TouchableOpacity>
         </View>
         <TouchableOpacity
           disabled={!termsAgreed}
           onPress={understandButton}
-        >
+          style={[styles.buttonShape, { backgroundColor: termsAgreed ? COLORS.primary : COLORS.gray },]}>
           <Text style={styles.buttonStyle}>I understand</Text>
         </TouchableOpacity>
       </SafeAreaView>

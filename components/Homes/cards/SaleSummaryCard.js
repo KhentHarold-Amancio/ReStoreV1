@@ -1,12 +1,13 @@
-import { View, StyleSheet, StatusBar, Image } from "react-native";
+import { View, StyleSheet, StatusBar, Image, TouchableOpacity } from "react-native";
 import React from "react";
 import { Avatar, Button, Card, Text } from "react-native-paper";
 import { COLORS, FONT, SIZES } from "../../../constants";
 import styles from "./styles/SaleSummary.style";
 
-const SaleSummaryCard = () => {
+const SaleSummaryCard = ({ onPress }) => {
 
   return (
+    <TouchableOpacity onPress={onPress}>
     <Card style={styles.container}>
       <Card.Content contentStyle={styles.container}>
         <Text style={[styles.textStyle, {fontFamily: FONT.bold, fontSize: SIZES.medium}]}>Total sales</Text>
@@ -18,6 +19,7 @@ const SaleSummaryCard = () => {
         style={styles.image}
       />
     </Card>
+    </TouchableOpacity>
   );
 };
 

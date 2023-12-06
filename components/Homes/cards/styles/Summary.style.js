@@ -5,34 +5,44 @@ import { COLORS, FONT, SIZES } from "../../../../constants";
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: COLORS.gray2,
-    marginHorizontal: 3,
-    marginBottom: 10,
-    height: SIZES.cardSmallHeight,
-    width: SIZES.cardSmallWidth,
-  },
-  ContentContainer: {
-    marginTop:-8,
-  },
-  rowContainer: {
+    flex: 1,
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginHorizontal: 12, // Adjust this based on your layout requirements
+    alignItems: "center",
+    width: SIZES.width * .97,
+    height: 'auto',
+    marginRight: 10,
+    marginLeft: 10,
+    marginTop: 5,
+  },
+  headerContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    borderColor: COLORS.quinary,
+  },
+  headerLogoStyle: {
+    width: 35,
+    height: 35,
+  },
+  cardContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    backgroundColor: COLORS.gray2,
+    width: SIZES.width * 1,
+    height: SIZES.height * 0.13,
+    alignContent: 'center',
+    marginBottom: 10,
+    paddingHorizontal: 5,
   },
   textStyle: {
     color: COLORS.white,
   },
-  contentStyle: {
-    width: SIZES.cardSmallWidth,
-  },
-  image: {
-    marginTop: 25,
-    height: 100,
-    width: 100,
-    position: "absolute",
-    alignContent: "center",
-    alignSelf: "center",
-    right: 10,
+  cardContent: {
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    height: 'auto',
+    marginTop: -10,
   },
 });
 

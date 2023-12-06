@@ -43,7 +43,7 @@ const SettingsView = ({ navigation }) => {
   };
   const router = useRouter();
   return (
-    <SafeAreaView style={{ backgroundColor: COLORS.gray, height: "100%" }}>
+    <SafeAreaView style={{ backgroundColor: COLORS.gray, flex: 1 }}>
       <Stack.Screen
         options={{
           headerStyle: { height: 120, backgroundColor: COLORS.gray },
@@ -84,7 +84,7 @@ const SettingsView = ({ navigation }) => {
             height: 2,
             backgroundColor: COLORS.gray2,
             marginLeft: 20,
-            marginTop: 20,
+            marginTop: 10,
           }}
         />
 
@@ -122,7 +122,7 @@ const SettingsView = ({ navigation }) => {
             height: 2,
             backgroundColor: COLORS.gray2,
             marginLeft: 20,
-            marginTop: 20,
+            marginTop: 10,
           }}
         />
 
@@ -131,7 +131,7 @@ const SettingsView = ({ navigation }) => {
             style={{
               flexDirection: "row",
             }}
-            href="./about"
+            onPress={() => router.push("/about")}
           >
             <Image
               source={require("../../assets/images/settings/about.png")}
@@ -147,19 +147,10 @@ const SettingsView = ({ navigation }) => {
             height: 2,
             backgroundColor: COLORS.gray2,
             marginLeft: 20,
-            marginTop: 20,
+            marginTop: 10,
           }}
         />
-
-        <View
-          style={{
-            width: SIZES.size,
-            height: 2,
-            marginLeft: 20,
-            marginTop: 20,
-            marginBottom: 170,
-          }}
-        />
+        
       </View>
       <ImportButton />
       {/*End*/}
@@ -170,30 +161,29 @@ const SettingsView = ({ navigation }) => {
 const styles = StyleSheet.create({
   maincont: {
     flexDirection: "column",
-    justifyContent: "center",
     width: SIZES.width,
     marginTop: 20,
   },
   subcont: {
     flexDirection: "row",
-    marginLeft: 40,
-    marginRight: 50,
-    marginTop: 20,
+    width: SIZES.cardHeight * .95,
+    marginLeft: 30,
+    marginRight: 30,
+    padding: 5,
   },
   img: {
-    width: 40,
-    height: 40,
+    width: 35,
+    height: 35,
     marginRight: 40,
-    marginTop: 8,
+    marginTop: 5,
   },
   headerRightContainer: {
     flexDirection: "row",
     marginRight: 10,
-    marginTop: 15,
   },
   txt: {
     fontFamily: FONT.bold,
-    fontSize: 35,
+    fontSize: SIZES.xLarge,
     color: COLORS.white,
   },
 });

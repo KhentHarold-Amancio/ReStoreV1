@@ -16,7 +16,7 @@ const ForecastTable = () => {
         title="Next Month Forecast"
         titleStyle={[
           styles.textStyle,
-          { fontFamily: FONT.bold, fontSize: SIZES.medium },
+          { fontFamily: FONT.bold, fontSize: SIZES.medium, marginBottom: -5 },
         ]}
       />
       <CustomDivider dividerColor={COLORS.gray} />

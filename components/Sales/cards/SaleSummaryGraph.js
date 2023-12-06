@@ -13,7 +13,7 @@ import Icon from "react-native-vector-icons/FontAwesome";
 import Graph from "../graph/graph";
 import GroupButton from "../buttons/groupbutton";
 
-const SaleSummaryGraph = ({ handleNavigate }) => {
+const SaleSummaryGraph = () => {
   const [value, setValue] = React.useState("day");
   const router = useRouter();
   return (
@@ -25,18 +25,6 @@ const SaleSummaryGraph = ({ handleNavigate }) => {
               Sales Summary
             </Text>
           </View>
-          <TouchableOpacity onPress={handleNavigate}>
-            <View style={styles.viewDetails}>
-              <Text
-                style={[
-                  styles.textStyle,
-                  { marginRight: 5, fontSize: SIZES.small },
-                ]}>
-                View details
-              </Text>
-              <Icon name="chevron-right" size={20} color={COLORS.white} />
-            </View>
-          </TouchableOpacity>
         </View>
         <Card.Content></Card.Content>
         <Divider style={styles.dividerStyle} />
@@ -58,7 +46,9 @@ const styles = StyleSheet.create({
   container: {
     alignContent: "center",
     backgroundColor: COLORS.gray2,
-    margin: 10,
+    marginTop: 5,
+    marginHorizontal: 10,
+    marginBottom: 15,
     height: "auto",
     width: SIZES.cardWidth,
     flexDirection: "column",

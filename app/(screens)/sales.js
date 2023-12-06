@@ -12,12 +12,13 @@ import SaleSummaryCard from "../../components/Sales/cards/SaleSummaryCard";
 import SaleSummaryGraph from "../../components/Sales/cards/SaleSummaryGraph";
 import SaleSummaryTable from "../../components/Sales/cards/SaleSummaryTable";
 import ProductListCard from "../../components/Sales/cards/ProductListCard";
+import Summary from "../../components/Homes/cards/Summary";
 
 const SalesSummaryView = () => {
   const router = useRouter();
   return (
     <SafeAreaView style={{ backgroundColor: COLORS.gray }}>
-      <ScrollView>
+      <ScrollView style={{ marginTop: 10}}>
       <Stack.Screen
         options={{
           headerStyle: { height: 120, backgroundColor: COLORS.gray },
@@ -37,7 +38,7 @@ const SalesSummaryView = () => {
         }}
       />
       <SaleSummaryCard />
-      <Overview />
+      <Summary />
       <SaleSummaryGraph handleNavigate={() => router.push('/product-list/list')}/>
       <SaleSummaryTable />
       <ProductListCard />

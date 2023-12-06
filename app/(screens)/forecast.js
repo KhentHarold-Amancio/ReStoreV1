@@ -1,7 +1,6 @@
-import { View, Text, ScrollView } from 'react-native'
+import { View, Text, ScrollView, SafeAreaView } from 'react-native'
 import React from 'react'
 import { Stack, useRouter } from "expo-router";
-import { SafeAreaView } from "react-native-safe-area-context";
 
 import ForecastSaleCard from '../../components/Forecast/cards/ForecastSaleCard'
 import Overview from '../../components/commons/overview/Overview';
@@ -19,7 +18,9 @@ import styles from "../../components/commons/header/styles/header.style";
 const ForecastView = () => {
   const router = useRouter();
   return (
-      <ScrollView style={{backgroundColor: COLORS.gray}}>
+      <SafeAreaView style={{ backgroundColor: COLORS.gray }}>
+
+      <ScrollView style={{ marginTop: 10 }}>
       <Stack.Screen
         options={{
           headerStyle: { height: 120, backgroundColor: COLORS.gray },
@@ -45,6 +46,7 @@ const ForecastView = () => {
         <ForecastTable />
         <ExportButton/>
       </ScrollView>
+      </SafeAreaView>
   )
 }
 

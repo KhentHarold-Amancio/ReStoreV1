@@ -7,12 +7,13 @@ import {
   SafeAreaView,
 } from "react-native";
 import { Stack, useRouter } from "expo-router";
-import { Layout, Text } from "@ui-kitten/components";
+import { Layout, Text, Icon } from "@ui-kitten/components";
+
 
 import HeaderText from "../../components/commons/header/headerText";
 import HeaderLogo from "../../components/commons/header/headerLogo";
 
-import { COLORS, images, FONT } from "../../constants";
+import { COLORS, images, SIZES, FONT } from "../../constants";
 import styles from "../../components/commons/header/styles/header.style";
 import Summary from "../../components/Homes/cards/Summary";
 import SaleForecastCard from "../../components/Homes/cards/SaleForecastCard";
@@ -23,7 +24,7 @@ const HomeView = () => {
   const router = useRouter();
 
   return (
-    <Layout style={{ flex: 1, backgroundColor: COLORS.gray }}>
+    <Layout style={{ flex: 1, backgroundColor: COLORS.gray}}>
       
       <Stack.Screen
         options={{
@@ -43,9 +44,16 @@ const HomeView = () => {
           },
         }}
       />
-      <ScrollView>
-      <SaleForecastCard />
-      <SaleSummaryCard />
+      <ScrollView style={{ marginTop: 15}}>
+      <SaleForecastCard onPress={() => router.push('/forecast')}/>
+      <SaleSummaryCard onPress={() => router.push('/sales')}/>
+      <Text
+        style={[
+          styles.textStyle,
+          { marginLeft: 30, fontFamily: FONT.bold, fontSize: SIZES.xLarge, marginTop: -5 },
+        ]}>
+        Summary
+      </Text>
       <Summary/>
       <ForecastTable/>
       </ScrollView>

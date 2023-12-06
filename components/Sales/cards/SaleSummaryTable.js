@@ -90,7 +90,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 10,
     height: "auto",
     justifyContent: "center",
-    marginBottom: 10,
+    marginBottom: 15,
     paddingBottom: 20,
   },
   titleStyle: {

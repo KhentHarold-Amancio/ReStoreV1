@@ -1,5 +1,5 @@
 import { StyleSheet } from "react-native";
-import { SIZES, COLORS } from "../../../../constants";
+import { SIZES, COLORS, FONT } from "../../../../constants";
 
 const styles = StyleSheet.create({
   container: {
@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
   },
   squareShapeView: {
     width: "95%",
-    height: SIZES.height * 0.65,
+    height: SIZES.height * 0.70,
     backgroundColor: COLORS.gray,
     borderRadius: 16,
     overflow: "hidden",
@@ -29,11 +29,12 @@ const styles = StyleSheet.create({
     marginLeft: 20,
     marginRight: 20,
     marginBottom: 10,
+    fontFamily: FONT.medium,
   },
   textShape2: {
     color: COLORS.white,
     marginLeft: 20,
-    fontWeight: "bold",
+    fontFamily: FONT.bold,
   },
   textShape3: {
     color: COLORS.white,
@@ -41,15 +42,21 @@ const styles = StyleSheet.create({
     marginLeft: 40,
     marginRight: 20,
     marginBottom: 10,
+    fontFamily: FONT.bold,
   },
   term: {
     color: COLORS.white,
     marginRight: 40, // Add left margin for the text
   },
   checkboxContainer: {
+    width: SIZES.width * 0.8,
     flexDirection: "row", // Arrange checkbox and text horizontally
     alignItems: "center", // Vertically center align them
-    margin: "5%", // Add margin for spacing
+    alignContent: "center",
+    alignSelf: "center",
+    paddingRight: 20,
+    marginVertical: 10,
+    marginRight: 10,
   },
   checkbox: {
     width: 20,
@@ -67,7 +74,7 @@ const styles = StyleSheet.create({
     marginLeft: "3%",
     marginRight: "3%",
     width: SIZES.cardWidth * 0.9,
-    height: SIZES.cardHeight * 0.3,
+    height: 60,
     backgroundColor: "#3463E1",
     borderRadius: 16,
     shadowColor: "black",
@@ -75,6 +82,8 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.7,
     shadowRadius: 2,
     elevation: 5,
+    marginTop: 10,
+    marginBottom: 5,
   },
   disabledButton: {
     backgroundColor: "gray", // Change the button color when disabled
