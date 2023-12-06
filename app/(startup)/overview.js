@@ -43,6 +43,7 @@ const OverViewCard = () => {
   return (
     <View style={{ flex: 1, backgroundColor: COLORS.gray }}>
       <SafeAreaView style={styles.container}>
+        <View style={{marginTop:50}}>
         <Text style={styles.headerText}>Overview</Text>
         <View style={styles.squareShapeView}>
           <ScrollView style={styles.scrollContainer}>
@@ -95,6 +96,7 @@ const OverViewCard = () => {
           style={[styles.buttonShape, { backgroundColor: termsAgreed ? COLORS.primary : COLORS.gray },]}>
           <Text style={styles.buttonStyle}>I understand</Text>
         </TouchableOpacity>
+        </View>
       </SafeAreaView>
     </View>
   );
