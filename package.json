@@ -17,6 +17,7 @@
     "@react-native-segmented-control/segmented-control": "2.4.1",
     "@ui-kitten/components": "^5.3.1",
     "@ui-kitten/eva-icons": "^5.3.1",
+    "axios": "^1.6.2",
     "expo": "~49.0.15",
     "expo-constants": "~14.4.2",
     "expo-linear-gradient": "~12.3.0",

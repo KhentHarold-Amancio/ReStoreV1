@@ -12,13 +12,16 @@ import SaleSummaryCard from "../../components/Sales/cards/SaleSummaryCard";
 import SaleSummaryGraph from "../../components/Sales/cards/SaleSummaryGraph";
 import SaleSummaryTable from "../../components/Sales/cards/SaleSummaryTable";
 import ProductListCard from "../../components/Sales/cards/ProductListCard";
-import Summary from "../../components/Homes/cards/Summary";
+import SummaryCard from "../../components/Homes/cards/SummaryCard";
+import { useRestore } from "../../hooks/useRestore";
 
-const SalesSummaryView = () => {
+const SalesView = () => {
   const router = useRouter();
+  const { monthlySales, grossSales, forecastData } = useRestore();
+  console.log("Predick",forecastData)
   return (
     <SafeAreaView style={{ backgroundColor: COLORS.gray }}>
-      <ScrollView style={{  }}>
+      <ScrollView style={{ marginTop: -5 }}>
       <Stack.Screen
         options={{
           headerStyle: { height: 120, backgroundColor: COLORS.gray },
@@ -38,7 +41,7 @@ const SalesSummaryView = () => {
         }}
       />
       <SaleSummaryCard />
-      <Summary />
+      {/* <SummaryCard grossData={grossSales[grossSales.length - 1]} forecastData={forecastData} /> */}
       <SaleSummaryGraph handleNavigate={() => router.push('/product-list/list')}/>
       <SaleSummaryTable />
       <ProductListCard />
@@ -47,4 +50,4 @@ const SalesSummaryView = () => {
   );
 };
 
-export default SalesSummaryView;
+export default SalesView;
