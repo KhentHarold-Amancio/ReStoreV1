@@ -17,13 +17,14 @@ import styles from "../../components/commons/header/styles/header.style";
 import SummaryCard from "../../components/Homes/cards/SummaryCard";
 import SaleForecastCard from "../../components/Homes/cards/SaleForecastCard";
 import SaleSummaryCard from "../../components/Homes/cards/SaleSummaryCard";
+import { useRestore } from "../../hooks/useRestore";
+import ImportButton from "../../components/Settings/Buttons/ImportButton";
 
 const HomeView = () => {
   const router = useRouter();
 
   return (
-    
-    <Layout style={{ flex: 1, backgroundColor: COLORS.gray }} >
+    <Layout style={{ flex: 1, backgroundColor: COLORS.gray }}>
       <Stack.Screen
         options={{
           headerStyle: { height: 120, backgroundColor: COLORS.gray },
@@ -54,11 +55,17 @@ const HomeView = () => {
               fontSize: SIZES.xLarge,
               marginTop: -5,
             },
-          ]}>
+          ]}
+        >
           Summary
         </Text>
-        {/* <SummaryCard /> */}
-
+        <SummaryCard />
+        <View
+          style={{
+            padding: 60,
+          }}
+        ></View>
+        <ImportButton />
       </ScrollView>
     </Layout>
   );

@@ -4,9 +4,18 @@ import { Card } from "react-native-paper";
 import { Icon } from "@ui-kitten/components";
 import { COLORS, FONT, SIZES } from "../../../constants";
 import styles from "./styles/Summary.style";
+import { useRestore } from "../../../hooks/useRestore";
 
-const SummaryCard = ({ grossData, forecastData }) => {
-  const isForecastTrendUp = forecastData.accuracy > 0;
+const SummaryCard = () => {
+  const restore = useRestore();
+
+  while (restore.isLoading) {
+    return null;
+  }
+
+  const grossData = restore.grossSales[0];
+
+  const isForecastTrendUp = 1;
   const isGrossSalesTrendUp = grossData.percent_increase > 0;
 
   const TrendDown = (props): IconElement => (
@@ -26,7 +35,7 @@ const SummaryCard = ({ grossData, forecastData }) => {
       fill={COLORS.tertiary}
     />
   );
-  
+
   return (
     <View>
       <View style={styles.container}>
@@ -82,60 +91,58 @@ const SummaryCard = ({ grossData, forecastData }) => {
             </View>
           </Card.Content>
         </Card>
-          {/* Forecast Data Card */}
-          <Card style={[styles.cardContainer, { marginEnd: 10 }]}>
-              <Card.Content style={styles.cardContent}>
-                  <View style={styles.headerContainer}>
-                      {isForecastTrendUp ? <TrendUp /> : <TrendDown />}
-                      <Text
-                          style={[
-                              styles.textStyle,
-                              {
-                                  fontFamily: FONT.medium,
-                                  fontSize: SIZES.small,
-                                  color: isForecastTrendUp
-                                      ? COLORS.tertiary
-                                      : COLORS.quaternary,
-                              },
-                          ]}
-                      >
-                          {forecastData.accuracy}
-                      </Text>
-                      <Text
-                          style={[
-                              styles.textStyle,
-                              {
-                                  fontFamily: FONT.light,
-                                  fontSize: SIZES.xSmall,
-                                  marginLeft: 5,
-                              },
-                          ]}
-                      >
-                          next month
-                      </Text>
-                  </View>
-                  <View style={{ marginTop: -5 }}>
-                      <Text
-                          style={[
-                              styles.textStyle,
-                              { fontFamily: FONT.bold, fontSize: SIZES.smallmedium },
-                          ]}
-                      >
-                          Projected Sales
-                      </Text>
-                      <Text
-                          style={[
-                              styles.textStyle,
-                              { fontFamily: FONT.regular, fontSize: SIZES.smallmedium },
-                          ]}
-                      >
-                          {forecastData.prediction}
-                      </Text>
-                  </View>
-              </Card.Content>
-          </Card>
-
-
+        {/* Forecast Data Card */}
+        <Card style={[styles.cardContainer, { marginEnd: 10 }]}>
+          <Card.Content style={styles.cardContent}>
+            <View style={styles.headerContainer}>
+              {isForecastTrendUp ? <TrendUp /> : <TrendDown />}
+              <Text
+                style={[
+                  styles.textStyle,
+                  {
+                    fontFamily: FONT.medium,
+                    fontSize: SIZES.small,
+                    color: isForecastTrendUp
+                      ? COLORS.tertiary
+                      : COLORS.quaternary,
+                  },
+                ]}
+              >
+                {97}
+              </Text>
+              <Text
+                style={[
+                  styles.textStyle,
+                  {
+                    fontFamily: FONT.light,
+                    fontSize: SIZES.xSmall,
+                    marginLeft: 5,
+                  },
+                ]}
+              >
+                next month
+              </Text>
+            </View>
+            <View style={{ marginTop: -5 }}>
+              <Text
+                style={[
+                  styles.textStyle,
+                  { fontFamily: FONT.bold, fontSize: SIZES.smallmedium },
+                ]}
+              >
+                Projected Sales
+              </Text>
+              <Text
+                style={[
+                  styles.textStyle,
+                  { fontFamily: FONT.regular, fontSize: SIZES.smallmedium },
+                ]}
+              >
+                {34}
+              </Text>
+            </View>
+          </Card.Content>
+        </Card>
       </View>
     </View>
   );

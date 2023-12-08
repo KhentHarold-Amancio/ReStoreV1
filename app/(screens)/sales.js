@@ -17,32 +17,37 @@ import { useRestore } from "../../hooks/useRestore";
 
 const SalesView = () => {
   const router = useRouter();
+  const restore = useRestore();
+
+  
   return (
     <SafeAreaView style={{ backgroundColor: COLORS.gray }}>
       <ScrollView style={{ marginTop: -5 }}>
-      <Stack.Screen
-        options={{
-          headerStyle: { height: 120, backgroundColor: COLORS.gray },
-          headerShadowVisible: false,
-          headerRight: () => (
-            <View style={styles.headerRightContainer}>
-              <HeaderLogo logoUrl={images.logo} />
-            </View>
-          ),
-          headerTitle: <HeaderText headerTitle="Forecast" />,
-          headerTitleStyle: {
-            marginTop: 10,
-            fontSize: 40,
-            fontFamily: FONT.bold,
-            color: COLORS.white,
-          },
-        }}
-      />
-      <SaleSummaryCard />
-      {/* <SummaryCard grossData={grossSales[grossSales.length - 1]} forecastData={forecastData} /> */}
-      <SaleSummaryGraph handleNavigate={() => router.push('/product-list/list')}/>
-      <SaleSummaryTable />
-      <ProductListCard />
+        <Stack.Screen
+          options={{
+            headerStyle: { height: 120, backgroundColor: COLORS.gray },
+            headerShadowVisible: false,
+            headerRight: () => (
+              <View style={styles.headerRightContainer}>
+                <HeaderLogo logoUrl={images.logo} />
+              </View>
+            ),
+            headerTitle: <HeaderText headerTitle="Forecast" />,
+            headerTitleStyle: {
+              marginTop: 10,
+              fontSize: 40,
+              fontFamily: FONT.bold,
+              color: COLORS.white,
+            },
+          }}
+        />
+        <SaleSummaryCard />
+        {/* <SummaryCard grossData={grossSales[grossSales.length - 1]} forecastData={forecastData} /> */}
+        <SaleSummaryGraph
+          handleNavigate={() => router.push("/product-list/list")}
+        />
+        <SaleSummaryTable />
+        <ProductListCard />
       </ScrollView>
     </SafeAreaView>
   );
