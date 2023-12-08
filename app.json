@@ -22,7 +22,8 @@
         "foregroundImage": "./assets/logo.png",
         "backgroundColor": "#353436"
       },
-      "package": "com.anonymous.ReStore"
+      "package": "com.anonymous.ReStore",
+      "permissions": ["READ_EXTERNAL_STORAGE"]
     },
     "web": {
       "favicon": "./assets/logo.svg"

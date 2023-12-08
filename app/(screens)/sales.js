@@ -17,8 +17,6 @@ import { useRestore } from "../../hooks/useRestore";
 
 const SalesView = () => {
   const router = useRouter();
-  const { monthlySales, grossSales, forecastData } = useRestore();
-  console.log("Predick",forecastData)
   return (
     <SafeAreaView style={{ backgroundColor: COLORS.gray }}>
       <ScrollView style={{ marginTop: -5 }}>

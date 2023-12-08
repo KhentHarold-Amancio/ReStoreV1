@@ -17,14 +17,9 @@ import styles from "../../components/commons/header/styles/header.style";
 import SummaryCard from "../../components/Homes/cards/SummaryCard";
 import SaleForecastCard from "../../components/Homes/cards/SaleForecastCard";
 import SaleSummaryCard from "../../components/Homes/cards/SaleSummaryCard";
-import { useRestore } from "../../hooks/useRestore";
 
 const HomeView = () => {
   const router = useRouter();
-  const [grossData, setGrossData] = useState([]);
-  const { grossSales, forecastData, isLoading } = useRestore();
-  
-  console.log("forecastData: ", forecastData && !isLoading);
 
   return (
     
@@ -63,7 +58,6 @@ const HomeView = () => {
           Summary
         </Text>
         {/* <SummaryCard /> */}
-        <SummaryCard grossData={grossSales[grossSales.length - 1]} forecastData={forecastData} />
 
       </ScrollView>
     </Layout>
