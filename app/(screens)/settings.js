@@ -20,6 +20,7 @@ import HeaderText from "../../components/commons/header/headerText";
 import HeaderLogo from "../../components/commons/header/headerLogo";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import ImportButton from "../../components/Settings/Buttons/ImportButton";
+import { useRestore } from "../../hooks/useRestore";
 
 function MyCheckbox() {
   const router = useRouter();
@@ -34,7 +35,8 @@ function MyCheckbox() {
   );
 }
 
-const SettingsView = ({ navigation }) => {
+const SettingsView = () => {
+  const restore = useRestore();
   const [isEnabled, setIsEnabled] = useState(false);
   const toggleSwitch = () => setIsEnabled((previousState) => !previousState);
 
@@ -150,7 +152,6 @@ const SettingsView = ({ navigation }) => {
             marginTop: 10,
           }}
         />
-        
       </View>
       <ImportButton />
       {/*End*/}
@@ -166,7 +167,7 @@ const styles = StyleSheet.create({
   },
   subcont: {
     flexDirection: "row",
-    width: SIZES.cardHeight * .95,
+    width: SIZES.cardHeight * 0.95,
     marginLeft: 30,
     marginRight: 30,
     padding: 5,
