@@ -22,6 +22,9 @@
         "foregroundImage": "./assets/logo.png",
         "backgroundColor": "#353436"
       },
+      "permissions": [
+        "android.permissions.READ_EXTERNAL_STORAGE"
+      ],
       "package": "com.anonymous.ReStore"
     },
     "web": {

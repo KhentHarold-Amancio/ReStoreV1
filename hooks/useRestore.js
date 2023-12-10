@@ -1,75 +1,91 @@
 import React, { useState, useEffect } from "react";
-import { ENDPOINT } from "../constants";
-import { useFocusEffect } from 'expo-router';
+import { SERVER_URL } from "../constants";
+import axios from "axios";
 
 export function useRestore() {
   const [isLoading, setIsLoading] = useState(false);
+  const [grossData, setGrossData] = useState([]);
   const [forecastData, setForecastData] = useState([]);
-  const [grossSales, setGrossSales] = useState([]);
+  const [error, setError] = useState(null);
 
-  const [monthlySales, setMonthlySales] = useState([]);
-
-  const fetchMonthlySales = async () => {
+  const uploadFile = async (file) => {
+    const formData = new FormData();
+    formData.append("file", {
+      uri: file.uri,
+      type: file.mimeType,
+      name: file.name,
+    });
     try {
-      const apiUrl = `${ENDPOINT}monthly_sales`;
-      console.log(apiUrl);
-      const response = await fetch(apiUrl);
-      const data = await response.json();
-
-      setMonthlySales(data)
+      const response = await axios.post(`${SERVER_URL}upload`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+      console.log(response.data);
     } catch (error) {
-      console.error('Error:', error);
-    }
-  };
-
-  const fetchGrossSales = async () => {
-    try {
-      const apiUrl = `${ENDPOINT}gross_sales`;
-      console.log(apiUrl);
-      const response = await fetch(apiUrl);
-      const data = await response.json();
-
-      setGrossSales(data)
-      // console.log(data);
-    } catch (error) {
-      console.error("Error fetching gross sales:", error);
+      console.error("Error uploading file:", error);
     }
   };
 
   const fetchForecastData = async () => {
     try {
-      const apiUrl = `${ENDPOINT}predict`;
-      console.log(apiUrl);
-      const response = await fetch(apiUrl);
-      // Parse JSON only once
-      const data = await response.json();
-  
-      setForecastData(data)
+      const response = await axios.request({
+        method: "GET",
+        url: `${SERVER_URL}predict`,
+      });
+      const data = response.data;
+      setForecastData(data);
     } catch (error) {
-      console.error("Error fetching forecast data:", error);
+      setError(error);
     }
   };
-  
-  
 
-  useFocusEffect(
-    React.useCallback(() => {
-      setIsLoading(true);
-    fetchForecastData();
-    fetchGrossSales();
-    fetchMonthlySales();
-    setIsLoading(false);
-  }, [])
-  );
-  
+  const fetchGrossData = async () => {
+    try {
+      const response = await axios.request({
+        method: "GET",
+        url: `${SERVER_URL}get_last_item`,
+      });
+      const data = response.data;
+
+      setGrossData(data);
+    } catch (error) {
+      setError(error);
+    }
+  };
+
+  const fetchData = async () => {
+    setIsLoading(true);
+    try {
+      fetchForecastData();
+      fetchGrossData();
+      console.log("Gross Data: ", data);
+      console.log("Forecast Data: ", data);
+      setIsLoading(false);
+    } catch (error) {
+      setError(error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const refetch = () => {
+    setIsLoading(true);
+    setError(null);
+    fetchData();
+  };
 
   return {
-    monthlySales,
-    grossSales,
+    fetchData,
+    grossData,
     forecastData,
-    fetchMonthlySales,
-    fetchForecastData,
-    fetchGrossSales,
-    isLoading
+    refetch,
+    isLoading,
+    error,
+    uploadFile,
   };
 }

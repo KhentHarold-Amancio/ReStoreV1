@@ -40,13 +40,9 @@ const BottomTabs = ({ navigation, state }) => {
   );
 };
 
-const StackLayout = ({ route }) => {
-  const { params } = route || {};
-  const { grossSales, forecastData } = params || {};
-  console.log("grossSales", grossSales);
+const StackLayout = () => {
   return (
     <Tabs
-    initialRouteName="home"
       screenOptions={{
         headerTitle: "",
         headerShadowVisible: false,

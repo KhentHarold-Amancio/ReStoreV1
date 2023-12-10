@@ -11,7 +11,7 @@ import styles from "../../components/commons/overviewcontainer/styles/OverView.s
 import { Stack, useRouter, useStack } from "expo-router";
 import { COLORS } from "../../constants";
 import { Icon } from "@ui-kitten/components";
-import AsyncStorage from '@react-native-async-storage/async-storage';  // Import AsyncStorage from the correct location
+import AsyncStorage from '@react-native-async-storage/async-storage'; 
 
 const OverViewCard = () => {
   const [termsAgreed, setTermsAgreed] = useState(false);
@@ -20,7 +20,6 @@ const OverViewCard = () => {
   const storageKey = "ReStore";
 
   useEffect(() => {
-    // Load the cached value when the component mounts
     loadTermsAgreed();
   }, []);
 
@@ -28,7 +27,7 @@ const OverViewCard = () => {
     try {
       const value = await AsyncStorage.getItem(storageKey);
       if (value !== null) {
-        router.push("/home");
+        router.replace("/home");
         console.log("TermsAgreed loaded from AsyncStorage:", value);
       } else {
         console.log("No value found in AsyncStorage for TermsAgreed.");
@@ -48,7 +47,6 @@ const OverViewCard = () => {
   };
 
   const understandButton = () => {
-    // Save the termsAgreed status to AsyncStorage
     saveTermsAgreed(true);
     router.replace("home");
   };

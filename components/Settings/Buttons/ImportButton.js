@@ -2,76 +2,36 @@ import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import React from "react";
 
 import { Dimensions } from "react-native";
-import {
-  COLORS,
-  ENDPOINT,
-  FONT,
-  SIZES,
-  ENDPNTUPLOAD,
-} from "../../../constants";
-import { Colors } from "react-native/Libraries/NewAppScreen";
+import { COLORS, FONT, SIZES } from "../../../constants";
 import * as DocumentPicker from "expo-document-picker";
-import * as FileSystem from "expo-file-system";
-import XLSX from "xlsx";
-import axios from "axios";
-
-const { width } = Dimensions.get("window");
-const buttonWidth = width * 0.95;
+import { useRestore } from "../../../hooks/useRestore";
 
 const ImportButton = () => {
-  const Import = async () => {
-    // You can add more logic or actions here
+  const { uploadFile } = useRestore();
+
+  const ImportFile = async () => {
     try {
-      const response = await fetch("http://192.168.254.116:5000/monthly_sales");
-
-      if (response.ok) {
-        const data = await response.json();
-        console.log("Server API is working:", data);
-      } else {
-        console.log(
-          "Server API request failed:",
-          response.status,
-          response.statusText
-        );
-      }
-
       const result = await DocumentPicker.getDocumentAsync({
-        type: "*/*",
-      });
+        type: ['text/csv', 'application/vnd.ms-excel', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'],
+        copyToCacheDirectory: true,
+      }); // returns a json object
 
       console.log("Document Picker Result:", result);
-
-      if (!result.cancelled) {
-        const formData = new FormData();
-        formData.append("file", {
-          uri: result.uri,
-          name: result.name,
-          type: "text/csv",
-        });
-
-        const response = await axios.post(ENDPNTUPLOAD, formData, {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        });
-
-        console.log("Server Response:", response.data);
-
-        // Handle the server response as needed
-      } else {
-        console.log("File selection canceled");
+      if (result.type !== null) {
+        uploadFile(result["assets"][0]); // documentPickerResult["assets"][0] is the file object
+        console.log("File uploaded");
       }
+
     } catch (documentPickerError) {
       console.error("Error picking document:", documentPickerError);
-      // Handle the error as needed
     }
   };
   return (
-    <View style={styles.container}>
-      <TouchableOpacity onPress={Import}>
+    <TouchableOpacity onPress={ImportFile} style={styles.container}>
+      <View style={styles.buttonStyle}>
         <Text style={styles.textProperty}>Import File</Text>
-      </TouchableOpacity>
-    </View>
+      </View>
+    </TouchableOpacity>
   );
 };
 
@@ -79,21 +39,27 @@ export default ImportButton;
 
 const styles = StyleSheet.create({
   container: {
-    position: "absolute",
-    bottom: 0,
-    height: 56,
-    width: buttonWidth,
     justifyContent: "center",
     alignItems: "center",
-    marginLeft: 10,
-    marginRight: 10,
-    marginBottom: 10,
-    backgroundColor: COLORS.primary,
-    borderRadius: 16,
+    bottom: 0,
+    position: "absolute",
+    width: SIZES.width,
   },
   textProperty: {
     fontSize: SIZES.smallmedium,
     fontFamily: FONT.medium,
     color: COLORS.white,
   },
+  buttonStyle: {
+    height: 56,
+    width: SIZES.width * 0.95,
+    justifyContent: "center",
+    alignItems: "center",
+    alignContent: "center",
+    marginLeft: 10,
+    marginRight: 10,
+    marginBottom: 10,
+    backgroundColor: COLORS.primary,
+    borderRadius: 16,
+  }
 });
