@@ -5,16 +5,14 @@ import {
   Image,
   TouchableOpacity,
 } from "react-native";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useRouter, Link } from "expo-router";
 import { Card, Text, Divider, SegmentedButtons } from "react-native-paper";
 import { COLORS, FONT, SIZES } from "../../../constants";
-import Icon from "react-native-vector-icons/FontAwesome";
 import Graph from "../graph/graph";
 import GroupButton from "../buttons/groupbutton";
 
-const SaleSummaryGraph = () => {
-  const [value, setValue] = React.useState("day");
+const SaleSummaryGraph = ({ selectedValue, handleValueChange, isLoading }) => {
   const router = useRouter();
   return (
     <>
@@ -28,14 +26,14 @@ const SaleSummaryGraph = () => {
         </View>
         <Card.Content></Card.Content>
         <Divider style={styles.dividerStyle} />
-        <GroupButton />
+        <GroupButton selectedValue={selectedValue} handleValueChange={handleValueChange} />
         <View
           style={{
             justifyContent: "center",
             alignContent: "center",
             alignItems: "center",
           }}>
-          <Graph />
+          <Graph selectedValue={selectedValue} isLoading={isLoading}/>
         </View>
       </Card>
     </>
@@ -74,6 +72,12 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     alignContent: "center",
   },
+  loadingContainer: {
+    width: '100%',
+    height: '100%',
+    justifyContent: 'center',
+    alignItems: 'center'
+  }
 });
 
 export default SaleSummaryGraph;

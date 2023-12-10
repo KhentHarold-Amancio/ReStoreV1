@@ -17,11 +17,6 @@ import styles from "../../components/commons/header/styles/header.style";
 import SummaryCard from "../../components/Homes/cards/SummaryCard";
 import SaleForecastCard from "../../components/Homes/cards/SaleForecastCard";
 import SaleSummaryCard from "../../components/Homes/cards/SaleSummaryCard";
-<<<<<<< HEAD
-=======
-import { useRestore } from "../../hooks/useRestore";
-import ImportButton from "../../components/Settings/Buttons/ImportButton";
->>>>>>> 49ff8e0784df07276dd1eb7c32d4e786b4b856a4
 
 const HomeView = () => {
   const router = useRouter();
@@ -63,16 +58,6 @@ const HomeView = () => {
           Summary
         </Text>
         <SummaryCard />
-<<<<<<< HEAD
-
-=======
-        <View
-          style={{
-            padding: 60,
-          }}
-        ></View>
-        <ImportButton />
->>>>>>> 49ff8e0784df07276dd1eb7c32d4e786b4b856a4
       </ScrollView>
     </Layout>
   );

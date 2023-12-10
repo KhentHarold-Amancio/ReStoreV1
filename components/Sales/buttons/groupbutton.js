@@ -3,27 +3,26 @@ import { View, Text, StyleSheet } from 'react-native';
 import { COLORS, FONT, SIZES } from "../../../constants";
 import { SegmentedButtons } from "react-native-paper";
 
-const GroupButton = () => {
-  const [value, setValue] = React.useState("day");
+const GroupButton = ({ selectedValue, handleValueChange }) => {
 
   return (
     <SegmentedButtons
-      value={value}
+      value={selectedValue}
       style={styles.segmentedButtonStyle}
-      onValueChange={setValue}
+      onValueChange={(value) => handleValueChange(value)}
       buttons={[
         {
           buttonColor: COLORS.primary,
-          value: 'day',
-          label: 'Daily',
-          labelStyle: { color: COLORS.white, fontFamily: FONT.medium, fontSize: SIZES.medium },
-          style: {backgroundColor: value === 'day' ? COLORS.primary : COLORS.gray, borderColor: "transparent"}
-        },
-        {
           value: 'month',
           label: 'Monthly',
           labelStyle: { color: COLORS.white, fontFamily: FONT.medium, fontSize: SIZES.medium },
-          style: {backgroundColor: value === 'month' ? COLORS.primary : COLORS.gray, borderColor: "transparent"}
+          style: {backgroundColor: selectedValue === 'month' ? COLORS.primary : COLORS.gray, borderColor: "transparent"}
+        },
+        {
+          value: 'year',
+          label: 'Yearly',
+          labelStyle: { color: COLORS.white, fontFamily: FONT.medium, fontSize: SIZES.medium },
+          style: {backgroundColor: selectedValue === 'year' ? COLORS.primary : COLORS.gray, borderColor: "transparent"}
         }
       ]}
     />

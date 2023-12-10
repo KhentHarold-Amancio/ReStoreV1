@@ -4,17 +4,17 @@ import { SIZES, COLORS, FONT } from "../../../../constants";
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    
-    marginLeft: 20,
+    height: SIZES.height * .9,
+    justifyContent: 'center',
+    alignContent: 'center',
   },
   headerText: {
     fontSize: 45,
-    paddingBottom: 10,
     fontFamily: "ChakraPetchBold",
     color: COLORS.white,
   },
   squareShapeView: {
-    width: "95%",
+    width: "100%",
     height: SIZES.height * 0.70,
     backgroundColor: COLORS.gray,
     borderRadius: 16,
@@ -83,7 +83,7 @@ const styles = StyleSheet.create({
     shadowRadius: 2,
     elevation: 5,
     marginTop: 10,
-    marginBottom: 5,
+    marginBottom: 15,
   },
   disabledButton: {
     backgroundColor: "gray", // Change the button color when disabled

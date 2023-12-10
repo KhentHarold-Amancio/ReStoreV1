@@ -7,7 +7,7 @@ const ListLayout = () => {
   return (
     <Stack>
       <Stack.Screen
-        name="list"
+        name="performance"
         options={{
           headerTitleStyle: {
             marginTop: 10,

@@ -1,7 +1,6 @@
 import {
   View,
   Text,
-  SafeAreaView,
   ScrollView,
   TouchableOpacity,
   Linking,
@@ -11,6 +10,7 @@ import styles from "../../components/commons/overviewcontainer/styles/OverView.s
 import { Stack, useRouter, useStack } from "expo-router";
 import { COLORS } from "../../constants";
 import { Icon } from "@ui-kitten/components";
+import { SafeAreaView } from "react-native-safe-area-context";
 import AsyncStorage from '@react-native-async-storage/async-storage'; 
 
 const OverViewCard = () => {
@@ -71,9 +71,9 @@ const OverViewCard = () => {
     setTermsAgreed(!termsAgreed);
   };
   return (
-    <View style={{ flex: 1, backgroundColor: COLORS.gray }}>
+    <View style={{ flex: 1, backgroundColor: COLORS.gray, justifyContent: 'center', alignItems: 'center' }}>
       <SafeAreaView style={styles.container}>
-        <View style={{marginTop:50}}>
+        <View>
         <Text style={styles.headerText}>Overview</Text>
         <View style={styles.squareShapeView}>
           <ScrollView style={styles.scrollContainer}>

@@ -22,15 +22,8 @@
         "foregroundImage": "./assets/logo.png",
         "backgroundColor": "#353436"
       },
-<<<<<<< HEAD
-      "permissions": [
-        "android.permissions.READ_EXTERNAL_STORAGE"
-      ],
-      "package": "com.anonymous.ReStore"
-=======
       "package": "com.anonymous.ReStore",
       "permissions": ["READ_EXTERNAL_STORAGE"]
->>>>>>> 49ff8e0784df07276dd1eb7c32d4e786b4b856a4
     },
     "web": {
       "favicon": "./assets/logo.svg"

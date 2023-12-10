@@ -1,25 +1,32 @@
-import { View, StyleSheet, StatusBar, Image } from "react-native";
-import React from "react";
-import { Avatar, Button, Card, Text, DataTable } from "react-native-paper";
+import { View, StyleSheet, TouchableOpacity, Image } from "react-native";
+import React, { useEffect } from "react";
+import { useRouter } from "expo-router";
+import {
+  Avatar,
+  Button,
+  Card,
+  Text,
+  DataTable,
+  ActivityIndicator,
+} from "react-native-paper";
 import { COLORS, FONT, SIZES } from "../../../constants";
 import CustomDivider from "../../divider/customdivider";
-
-const generateDummyData = (count) => {
-  const dummyData = [];
-  for (let i = 1; i <= count; i++) {
-    dummyData.push({
-      key: i,
-      month: `Item ${i}`,
-      forecast: Math.floor(Math.random() * 500) + 100,
-      actual: Math.floor(Math.random() * 20) + 5,
-      variance: Math.floor(Math.random() * 20) + 5,
-    });
-  }
-  return dummyData;
-};
+import { useRestore } from "../../../hooks/useRestore";
+import Icon from "react-native-vector-icons/FontAwesome";
 
 const SaleSummaryTable = () => {
-  const items = generateDummyData(3);
+  const { fetchSalesPerformanceData, salesPerformanceData, isLoading, error } =
+    useRestore();
+  const router = useRouter();
+
+  const handleFetchData = async () => {
+    fetchSalesPerformanceData();
+  };
+
+  useEffect(() => {
+    handleFetchData();
+    console.log("Sales Performance:", salesPerformanceData);
+  }, []);
 
   return (
     <Card style={styles.container}>
@@ -34,7 +41,25 @@ const SaleSummaryTable = () => {
           styles.textStyle,
           { fontFamily: FONT.regular, fontSize: SIZES.small, marginTop: -10 },
         ]}
+        right={() => (
+          <TouchableOpacity onPress={() => router.push('/performance')}>
+            <View style={styles.viewDetails}>
+              <Text
+                style={[
+                  styles.textStyle,
+                  { marginRight: 5, fontSize: SIZES.small },
+                ]}
+              >
+                View more
+              </Text>
+              <Icon name="chevron-right" size={20} color={COLORS.white} />
+            </View>
+          </TouchableOpacity>
+        )}
+        rightStyle={{ marginRight: 10 }}
+        
       />
+
       <CustomDivider dividerColor={COLORS.gray} />
       <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
         <DataTable style={{ justifyContent: "center", alignSelf: "center" }}>
@@ -43,40 +68,61 @@ const SaleSummaryTable = () => {
               Month
             </DataTable.Title>
             <DataTable.Title numeric textStyle={styles.titleStyle}>
-              Forecast
-            </DataTable.Title>
-            <DataTable.Title numeric textStyle={styles.titleStyle}>
               Actual
             </DataTable.Title>
             <DataTable.Title numeric textStyle={styles.titleStyle}>
-              Variance
+              Change $
+            </DataTable.Title>
+            <DataTable.Title numeric textStyle={styles.titleStyle}>
+              Change %
             </DataTable.Title>
           </DataTable.Header>
 
-          {items.map((item) => (
-            <DataTable.Row key={item.key}>
-              <DataTable.Cell textStyle={styles.textStyle}>
-                {item.month}
-              </DataTable.Cell>
-              <DataTable.Cell numeric textStyle={styles.textStyle}>
-                {`$${item.forecast}`}
-              </DataTable.Cell>
-              <DataTable.Cell numeric textStyle={styles.textStyle}>
-                {`$${item.actual}`}
-              </DataTable.Cell>
-              <DataTable.Cell
-                numeric
-                textStyle={[
-                  styles.textStyle,
-                  {
-                    color:
-                      item.variance > 0 ? COLORS.tertiary : COLORS.quaternary,
-                  },
-                ]}>
-                {`$${item.variance}`}
-              </DataTable.Cell>
-            </DataTable.Row>
-          ))}
+          {isLoading ? (
+            <View style={styles.loadingContainer}>
+            <ActivityIndicator color={COLORS.primary} size={"small"} />
+            </View>
+          ) : (
+            salesPerformanceData.slice(-3).map((data, index) => (
+              <DataTable.Row key={index}>
+                <DataTable.Cell textStyle={styles.textStyle}>
+                  {data.Month}
+                </DataTable.Cell>
+                <DataTable.Cell numeric textStyle={styles.textStyle}>
+                  {`$${data.Sales.toLocaleString()}`}
+                </DataTable.Cell>
+                <DataTable.Cell
+                  numeric
+                  textStyle={[
+                    styles.textStyle,
+                    {
+                      color:
+                        data.DifferenceInSales < 0
+                          ? COLORS.quaternary
+                          : COLORS.tertiary,
+                    },
+                  ]}>
+                  {`${Number(data.DifferenceInSales) < 0 ? "-" : ""}${Math.abs(
+                    Number(data.DifferenceInSales)
+                  ).toLocaleString()}`}
+                </DataTable.Cell>
+
+                <DataTable.Cell
+                  numeric
+                  textStyle={[
+                    styles.textStyle,
+                    {
+                      color:
+                        data.PercentageIncrease > 0
+                          ? COLORS.tertiary
+                          : COLORS.quaternary,
+                    },
+                  ]}>
+                  {`${data.PercentageIncrease}`}
+                </DataTable.Cell>
+              </DataTable.Row>
+            ))
+          )}
         </DataTable>
       </View>
     </Card>
@@ -108,6 +154,18 @@ const styles = StyleSheet.create({
   contentStyle: {
     justifyContent: "center", // Center the cell text horizontally
   },
+  viewDetails: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginTop: 5,
+  },
+  loadingContainer: {
+    bottom: 0,
+    width: '100%',
+    height: '100%',
+    justifyContent: 'center',
+    alignItems: 'center'
+  }
 });
 
 export default SaleSummaryTable;
