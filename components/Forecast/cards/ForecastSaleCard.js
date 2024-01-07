@@ -3,10 +3,10 @@ import React from "react";
 import { Avatar, Button, Card, Text } from "react-native-paper";
 import { COLORS, FONT, SIZES } from "../../../constants";
 import styles from "./styles/ForecastSale.style";
-const ForecastSaleCard = () => {
-
+const ForecastSaleCard = ({ onPress }) => {
+  
   return (
-    <TouchableOpacity>
+    <TouchableOpacity onPress={onPress}>
     <Card style={styles.container}>
       <Card.Content contentStyle={styles.container}>
         <Text style={[styles.textStyle, {fontFamily: FONT.bold, fontSize: SIZES.medium}]}>Quarterly sales</Text>

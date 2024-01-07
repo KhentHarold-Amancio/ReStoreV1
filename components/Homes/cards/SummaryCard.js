@@ -9,7 +9,7 @@ import { useRestore } from "../../../hooks/useRestore";
 const SummaryCard = () => {
   const { fetchData, isLoading, forecastData, grossData, refetch } =
     useRestore();
-
+    
   const handleFetchData = () => {
     fetchData();
   };
@@ -17,7 +17,6 @@ const SummaryCard = () => {
   useEffect(() => {
     handleFetchData();
   }, []);
-
 
   const TrendDown = (props) => (
     <Icon
@@ -41,54 +40,71 @@ const SummaryCard = () => {
     <View style={styles.container}>
       <Card style={[styles.cardContainer, { marginEnd: 10 }]}>
         <Card.Content style={styles.cardContent}>
-          <View style={styles.headerContainer}>
-            {grossData < 0 ? <TrendDown /> : <TrendUp />}
-            <Text
-              style={[
-                styles.textStyle,
-                {
-                  fontFamily: FONT.medium,
-                  fontSize: SIZES.small,
-                  color: grossData < 0 ? COLORS.quaternary : COLORS.tertiary,
-                },
-              ]}>
-              {grossData.percent_increase}
-            </Text>
-            <Text
-              style={[
-                styles.textStyle,
-                {
-                  fontFamily: FONT.light,
-                  fontSize: SIZES.xSmall,
-                  marginLeft: 5,
-                },
-              ]}>
-              this month
-            </Text>
-          </View>
-          <View style={{ marginTop: -5 }}>
-            <Text
-              style={[
-                styles.textStyle,
-                { fontFamily: FONT.bold, fontSize: SIZES.smallmedium },
-              ]}>
-              Gross Sales
-            </Text>
-            <Text
-              style={[
-                styles.textStyle,
-                { fontFamily: FONT.regular, fontSize: SIZES.smallmedium },
-              ]}>
-              ${grossData.cumulative_gross_sales}
-            </Text>
-          </View>
+          {isLoading ? (
+            <ActivityIndicator color={COLORS.primary} size={"small"} style={styles.loadingContainer}/>
+          ) : grossData ? (
+            <>
+              <View style={styles.headerContainer}>
+                {grossData.percent_increase < 0 ? (
+                  <TrendDown />
+                ) : (
+                  <TrendUp />
+                )}
+                <Text
+                  style={[
+                    styles.textStyle,
+                    {
+                      fontFamily: FONT.medium,
+                      fontSize: SIZES.small,
+                      color:
+                        grossData.length > 0 &&
+                        grossData.percent_increase < 0
+                          ? COLORS.quaternary
+                          : COLORS.tertiary,
+                    },
+                  ]}>
+                  {grossData.percent_increase}
+                </Text>
+                <Text
+                  style={[
+                    styles.textStyle,
+                    {
+                      fontFamily: FONT.light,
+                      fontSize: SIZES.xSmall,
+                      marginLeft: 5,
+                    },
+                  ]}>
+                  this month
+                </Text>
+              </View>
+              <View style={{ marginTop: -5 }}>
+                <Text
+                  style={[
+                    styles.textStyle,
+                    { fontFamily: FONT.bold, fontSize: SIZES.smallmedium },
+                  ]}>
+                  Gross Sales
+                </Text>
+                <Text
+                  style={[
+                    styles.textStyle,
+                    { fontFamily: FONT.regular, fontSize: SIZES.smallmedium },
+                  ]}>
+                  $
+                  {grossData.cumulative_gross_sales}
+                </Text>
+              </View>
+            </>
+          ) : (
+            <Text>Error loading gross data.</Text>
+          )}
         </Card.Content>
       </Card>
       {/* Forecast Data Card */}
       <Card style={[styles.cardContainer, { marginEnd: 10 }]}>
         <Card.Content style={styles.cardContent}>
           {isLoading ? (
-            <ActivityIndicator color={COLORS.primary}  size={'small'} />
+            <ActivityIndicator color={COLORS.primary} size={"small"} style={styles.loadingContainer}/>
           ) : forecastData ? (
             <View>
               <View style={styles.headerContainer}>

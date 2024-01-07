@@ -23,17 +23,22 @@ export function useRestore() {
           "Content-Type": "multipart/form-data",
         },
       });
+      refetch();
     } catch (error) {
       console.error("Error uploading file:", error);
     }
   };
 
   const fetchForecastData = async () => {
+    setIsLoading(true);
     try {
       const response = await axios.get(`${SERVER_URL}predict`);
       setForecastData(response.data);
+      setIsLoading(false);
     } catch (error) {
       setError(error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -41,9 +46,11 @@ export function useRestore() {
     setIsLoading(true);
     try {
       const response = await axios.get(`${SERVER_URL}get_sales_data`);
-      setSalesData(response.data);
-      console.log("Sales Data:", salesData);
-      setIsLoading(false);
+      if (response) {
+        setSalesData(response.data);
+        setIsLoading(false);
+      }
+      
     } catch (error) {
       setError(error);
     } finally {
@@ -55,6 +62,7 @@ export function useRestore() {
     setIsLoading(true);
     try {
       const response = await axios.get(`${SERVER_URL}sales_performance_history`);
+
       setSalesPerformanceData(response.data);
       setIsLoading(false);
     } catch (error) {
@@ -65,14 +73,19 @@ export function useRestore() {
   }
 
   const fetchGrossData = async () => {
+    setIsLoading(true);
     try {
       const response = await axios.get(`${SERVER_URL}get_last_item`);
       setGrossData(response.data);
+      setIsLoading(false);
     } catch (error) {
       setError(error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
+  
   const fetchData = async () => {
     setIsLoading(true);
     try {
@@ -105,6 +118,7 @@ export function useRestore() {
     fetchData,
     uploadFile,
     fetchSalesPerformanceData,
+    fetchForecastData,
     fetchSalesData,
     refetch,
   };

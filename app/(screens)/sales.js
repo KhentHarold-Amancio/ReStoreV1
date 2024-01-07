@@ -17,38 +17,42 @@ import { useRestore } from "../../hooks/useRestore";
 const SalesView = () => {
   const router = useRouter();
   const { isLoading, error } = useRestore();
-  const [selectedValue, setSelectedValue] = useState('month');
-
+  const [selectedValue, setSelectedValue] = useState("month");
 
   const handleValueChange = (value) => {
     setSelectedValue(value);
   };
-  
+
   return (
-    <SafeAreaView style={{ backgroundColor: COLORS.gray }}>
+    <SafeAreaView style={{ backgroundColor: COLORS.gray, flex: 1}}>
       <ScrollView style={{ marginTop: -5 }}>
-      <Stack.Screen
-        options={{
-          headerStyle: { height: 120, backgroundColor: COLORS.gray },
-          headerShadowVisible: false,
-          headerRight: () => (
-            <View style={styles.headerRightContainer}>
-              <HeaderLogo logoUrl={images.logo} />
-            </View>
-          ),
-          headerTitle: <HeaderText headerTitle="Forecast" />,
-          headerTitleStyle: {
-            marginTop: 10,
-            fontSize: 40,
-            fontFamily: FONT.bold,
-            color: COLORS.white,
-          },
-        }}
-      />
-      <SaleSummaryCard />
-      <SummaryCard />
-      <SaleSummaryGraph isLoading={isLoading} selectedValue={selectedValue} handleValueChange={handleValueChange} />
-      <SaleSummaryTable />
+        <Stack.Screen
+          options={{
+            headerStyle: { height: 120, backgroundColor: COLORS.gray },
+            headerShadowVisible: false,
+            headerRight: () => (
+              <View style={styles.headerRightContainer}>
+                <HeaderLogo logoUrl={images.logo} />
+              </View>
+            ),
+            headerTitle: <HeaderText headerTitle="Forecast" />,
+            headerTitleStyle: {
+              marginTop: 10,
+              fontSize: 40,
+              fontFamily: FONT.bold,
+              color: COLORS.white,
+            },
+          }}
+        />
+        <SaleSummaryCard />
+        <SummaryCard />
+          <SaleSummaryGraph
+            isLoading={isLoading}
+            selectedValue={selectedValue}
+            handleValueChange={handleValueChange}
+          />
+
+        <SaleSummaryTable />
       </ScrollView>
     </SafeAreaView>
   );

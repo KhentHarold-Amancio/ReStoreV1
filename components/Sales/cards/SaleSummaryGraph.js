@@ -7,7 +7,7 @@ import {
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import { useRouter, Link } from "expo-router";
-import { Card, Text, Divider, SegmentedButtons } from "react-native-paper";
+import { Card, Text, Divider, ActivityIndicator } from "react-native-paper";
 import { COLORS, FONT, SIZES } from "../../../constants";
 import Graph from "../graph/graph";
 import GroupButton from "../buttons/groupbutton";
@@ -24,17 +24,21 @@ const SaleSummaryGraph = ({ selectedValue, handleValueChange, isLoading }) => {
             </Text>
           </View>
         </View>
-        <Card.Content></Card.Content>
         <Divider style={styles.dividerStyle} />
-        <GroupButton selectedValue={selectedValue} handleValueChange={handleValueChange} />
-        <View
-          style={{
-            justifyContent: "center",
-            alignContent: "center",
-            alignItems: "center",
-          }}>
-          <Graph selectedValue={selectedValue} isLoading={isLoading}/>
-        </View>
+        <GroupButton
+          selectedValue={selectedValue}
+          handleValueChange={handleValueChange}
+        />
+
+          <View
+            style={{
+              justifyContent: "center",
+              alignContent: "center",
+              alignItems: "center",
+            }}>
+            <Graph selectedValue={selectedValue} isLoading={isLoading} />
+          </View>
+
       </Card>
     </>
   );
@@ -73,11 +77,11 @@ const styles = StyleSheet.create({
     alignContent: "center",
   },
   loadingContainer: {
-    width: '100%',
-    height: '100%',
-    justifyContent: 'center',
-    alignItems: 'center'
-  }
+    width: "100%",
+    height: "100%",
+    justifyContent: "center",
+    alignItems: "center",
+  },
 });
 
 export default SaleSummaryGraph;

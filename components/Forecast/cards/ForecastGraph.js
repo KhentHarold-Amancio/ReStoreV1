@@ -8,8 +8,8 @@ import {
   import Icon from "react-native-vector-icons/FontAwesome";
   import LineGraph from "../graph/linegraph";
   
-  const ForecastGraph = () => {
-    const [value, setValue] = React.useState("Month");
+  const ForecastGraph = ({ forecastData, isLoading, salesData }) => {
+
     return (
       <>
         <Card style={styles.container}>
@@ -31,7 +31,7 @@ import {
               alignContent: "center",
               alignItems: "center",
             }}>
-            <LineGraph />
+            <LineGraph isLoading={isLoading} forecastData={forecastData} salesData={salesData}/>
           </View>
         </Card>
       </>

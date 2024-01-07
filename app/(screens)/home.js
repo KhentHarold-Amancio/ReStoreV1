@@ -15,11 +15,12 @@ import HeaderLogo from "../../components/commons/header/headerLogo";
 import { COLORS, images, SIZES, FONT } from "../../constants";
 import styles from "../../components/commons/header/styles/header.style";
 import SummaryCard from "../../components/Homes/cards/SummaryCard";
-import SaleForecastCard from "../../components/Homes/cards/SaleForecastCard";
-import SaleSummaryCard from "../../components/Homes/cards/SaleSummaryCard";
+import ForecastSaleCard from "../../components/Forecast/cards/ForecastSaleCard";
+import SaleSummaryCard from "../../components/Sales/cards/SaleSummaryCard";
 
 const HomeView = () => {
   const router = useRouter();
+  
 
   return (
     <Layout style={{ flex: 1, backgroundColor: COLORS.gray }}>
@@ -42,7 +43,7 @@ const HomeView = () => {
         }}
       />
       <ScrollView>
-        <SaleForecastCard onPress={() => router.push("/forecast")} />
+        <ForecastSaleCard onPress={() => router.push("/forecast")} />
         <SaleSummaryCard onPress={() => router.push("/sales")} />
         <Text
           style={[

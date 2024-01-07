@@ -1,43 +1,75 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { BarChart } from "react-native-gifted-charts";
 import { SIZES, COLORS } from "../../../constants";
-import { ActivityIndicator } from "react-native-paper";
 import { useRestore } from "../../../hooks/useRestore";
 
 const Graph = ({ selectedValue }) => {
-  const { fetchSalesData, salesData, isLoading, error } = useRestore();
+  const { fetchSalesData, salesData } = useRestore();
   const [graphData, setGraphData] = useState([]);
+  const [error, setError] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleFetchData = () => {
     fetchSalesData();
   }
 
   useEffect(() => {
-    handleFetchData();
-  }, []);
+    const fetchData = async () => {
+      setIsLoading(true);
+      try {
+        handleFetchData();
+        setError(null);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+        setError(error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    fetchData();
+  }, [selectedValue]);
 
   useEffect(() => {
-    Data();
-  }, [salesData]);
+    getData()
+  }, [salesData])
 
-  const Data = async () => {
-    if(selectedValue === 'month') {
-      console.log("Data", salesData['monthly_sales_data']);
-      setGraphData(salesData['monthly_sales_data'].slice(-6).map(item => ({
-        value: item.Sales,
-        label: new Date(item.Month + '-01').toLocaleString('default', { month: 'short' }),
-      })))
-    } else {
-       setGraphData(salesData = salesData['yearly_sales_data'].slice(-6).map(item => ({
-        value: item.Sales,
-        label: new Date(item.Month + '-01').toLocaleString('default', { month: 'short' }),
-      })))
-    }
 
-  }
+  const getData = async () => {
+    if (isLoading || !salesData) return;
+
+    const processData = (data, labelFormat) => {
+      if (!data) return [];
+      
+      return data.slice(-6).map((item) => ({
+        value: item.Sales,
+        label: new Date(item.Month + "-01").toLocaleString("default", labelFormat),
+        labelTextStyle: { color: COLORS.gray3 },
+      }));
+    };
   
-  const getMaxValue = (data) => {
+    setIsLoading(true);
+    try {
+      let processedData;
+  
+      if (selectedValue === "month") {
+        processedData = processData(salesData["monthly_sales_data"], { month: "short" });
+      } else {
+        processedData = processData(salesData["yearly_sales_data"], { year: "numeric" });
+      }
+
+      setGraphData(processedData);
+      setError(null);
+    } catch (error) {
+      console.error("Error processing data:", error);
+      setError(error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+  
+  
+  const getRoundedMaxValue = (data) => {
     if (!Array.isArray(data) || data.length === 0) {
       return null;
     }
@@ -50,54 +82,63 @@ const Graph = ({ selectedValue }) => {
     return roundedMaxValue;
   };
 
-  // const calculateStepValue = (maxValue, maxSections = 3) => {
-  //   const roundedMaxValue = Math.ceil(maxValue / 100) * 100;
-  //   const stepValue = Math.ceil(roundedMaxValue / maxSections / 100) * 100;
-  //   return stepValue;
-  // };
+  const getDynamicBarWidth = () => {
+    const numberOfDataPoints = graphData.length;
+    const maxDataPointsToShow = 10;
+    const defaultBarWidth = SIZES.cardWidth / 20;
 
-  // const maxBarValue = ;
-  // const stepValue = calculateStepValue(maxBarValue, 3);
+    const minBarWidth = 5;
+    const maxBarWidth = 30;
+
+    const dynamicBarWidth = Math.min(
+      maxBarWidth,
+      Math.max(minBarWidth, SIZES.cardWidth / (numberOfDataPoints || maxDataPointsToShow))
+    );
+
+    return dynamicBarWidth;
+  };
 
   return (
     <View style={styles.container}>
-      {isLoading ? (
-        <View style={styles.loadingContainer}>
-          <ActivityIndicator size="small" color={COLORS.primary} />
-        </View>
-      ) : (
+        <View style={styles.graphContainer}>
         <BarChart
           frontColor={COLORS.primary}
           showFractionalValue
           showYAxisIndices
-          noOfSections={3}
-          maxValue={getMaxValue(graphData)}
+          noOfSections={4}
+          maxValue={getRoundedMaxValue(graphData)}
           dashGap={0}
           data={graphData}
           isAnimated
           stepHeight={50}
           roundedTop
           spacing={25}
-          barWidth={SIZES.cardWidth / 20}
+          scrollToEnd={true}
+          barWidth={getDynamicBarWidth()}
           yAxisTextStyle={{ color: COLORS.gray3 }}
           xAxisTextStyle={{ color: COLORS.gray3 }}
           xAxisColor={COLORS.lightWhite}
           yAxisThickness={0}
         />
-      )}
+        </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
     alignItems: "center",
-    width: "auto",
-    minWidth: 300,
+    width: SIZES.width * 0.9,
+    height: 'auto',
     justifyContent: "center",
-    padding: 10,
-    marginTop: -10,
-    marginRight: 20,
+    marginHorizontal: 10,
+    overflow: "hidden",
+  },
+  graphContainer: {
+    width: SIZES.width * 0.9,
+    justifyContent: "center",
+    alignItems: "center",
   },
   loadingContainer: {
     width: "100%",

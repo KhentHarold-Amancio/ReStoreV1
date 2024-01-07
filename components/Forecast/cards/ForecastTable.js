@@ -1,14 +1,28 @@
-import { View, StyleSheet, StatusBar, Image, TouchableOpacity } from "react-native";
+import {
+  View,
+  StyleSheet,
+  StatusBar,
+  Image,
+  TouchableOpacity,
+} from "react-native";
 import React from "react";
-import { Avatar, Button, Card, Text, DataTable } from "react-native-paper";
+import {
+  Avatar,
+  Button,
+  Card,
+  ActivityIndicator,
+  DataTable,
+} from "react-native-paper";
 import { COLORS, FONT, SIZES } from "../../../constants";
 import CustomDivider from "../../divider/customdivider";
 
-
-const ForecastTable = () => {
-  const data = [
-    {forecast: 26, demand: 35, month: 'April'},
-  ]
+const ForecastTable = ({ forecastData, isLoading }) => {
+  const dateString = forecastData.next_month;
+  const dateObject = new Date(dateString);
+  const formattedDate = dateObject.toLocaleString("default", {
+    month: "long",
+    year: "numeric",
+  });
 
   return (
     <Card style={styles.container}>
@@ -20,14 +34,12 @@ const ForecastTable = () => {
         ]}
       />
       <CustomDivider dividerColor={COLORS.gray} />
+
       <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
         <DataTable style={{ justifyContent: "center", alignSelf: "center" }}>
           <DataTable.Header>
             <DataTable.Title textStyle={styles.titleStyle}>
-              Month
-            </DataTable.Title>
-            <DataTable.Title numeric textStyle={styles.titleStyle}>
-              Demand
+              Date
             </DataTable.Title>
             <DataTable.Title numeric textStyle={styles.titleStyle}>
               Sales
@@ -36,12 +48,23 @@ const ForecastTable = () => {
               % Change
             </DataTable.Title>
           </DataTable.Header>
+          {isLoading ? (
+            <View style={styles.loadingContainer}>
+              <ActivityIndicator color={COLORS.primary} size={"small"} />
+            </View>
+          ) : (
             <DataTable.Row>
-              <DataTable.Cell textStyle={styles.textStyle}>{data[0].month}</DataTable.Cell>
-              <DataTable.Cell numeric textStyle={styles.textStyle}>{data[0].demand}</DataTable.Cell>
-              <DataTable.Cell numeric textStyle={styles.textStyle}>${data[0].forecast}</DataTable.Cell>
-              <DataTable.Cell numeric textStyle={styles.textPercent}>55%</DataTable.Cell>
+              <DataTable.Cell textStyle={styles.textStyle}>
+                {formattedDate}
+              </DataTable.Cell>
+              <DataTable.Cell numeric textStyle={styles.textStyle}>
+                ${forecastData.prediction}
+              </DataTable.Cell>
+              <DataTable.Cell numeric textStyle={styles.textPercent}>
+                {forecastData.percentage_increase}
+              </DataTable.Cell>
             </DataTable.Row>
+          )}
         </DataTable>
       </View>
     </Card>
@@ -68,19 +91,25 @@ const styles = StyleSheet.create({
     color: COLORS.white,
     fontFamily: FONT.regular,
     justifyContent: "center",
-    alignItems: 'center',
+    alignItems: "center",
     fontSize: SIZES.small,
-    justifyContent: 'space-between',
+    justifyContent: "space-between",
   },
   textPercent: {
     color: COLORS.tertiary,
     fontFamily: FONT.regular,
     justifyContent: "center",
     fontSize: SIZES.small,
-    justifyContent: 'space-between',
+    justifyContent: "space-between",
   },
   contentStyle: {
     justifyContent: "center", // Center the cell text horizontally
+  },
+  loadingContainer: {
+    justifyContent: "center",
+    alignItems: "center",
+    width: "100%",
+    height: "100%",
   },
 });
 

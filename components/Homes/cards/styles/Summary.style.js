@@ -44,6 +44,12 @@ const styles = StyleSheet.create({
     height: 'auto',
     marginTop: -10,
   },
+  loadingContainer: {
+    width: "100%",
+    height: "100%",
+    justifyContent: "center",
+    alignItems: "center",
+  }
 });
 
 export default styles;

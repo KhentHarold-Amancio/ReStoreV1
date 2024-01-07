@@ -1,6 +1,7 @@
 import { View, Text, ScrollView, SafeAreaView } from 'react-native'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Stack, useRouter } from "expo-router";
+import { useRestore } from '../../hooks/useRestore';
 
 import ForecastSaleCard from '../../components/Forecast/cards/ForecastSaleCard'
 import Overview from '../../components/commons/overview/Overview';
@@ -17,6 +18,19 @@ import styles from "../../components/commons/header/styles/header.style";
 
 const ForecastView = () => {
   const router = useRouter();
+  const { fetchSalesData, salesData, forecastData, isLoading } = useRestore();
+
+  useEffect(() => {
+    const fetch = async () => {
+      await fetchSalesData();
+    };
+    fetch();
+  }, []);
+
+  useEffect(() => {
+    console.log("Sales Data:", salesData);
+  }, [salesData]);
+  
   return (
       <SafeAreaView style={{ backgroundColor: COLORS.gray }}>
 
@@ -42,8 +56,8 @@ const ForecastView = () => {
       {/* Below is where you will add your components */}
         <ForecastSaleCard />
         <Overview />
-        <ForecastGraph />
-        <ForecastTable />
+        <ForecastGraph forecastData={forecastData} isLoading={isLoading} salesData={salesData} />
+        <ForecastTable forecastData={forecastData} isLoading={isLoading}  />
         <ExportButton/>
       </ScrollView>
       </SafeAreaView>
