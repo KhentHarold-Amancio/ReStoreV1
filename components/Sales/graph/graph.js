@@ -4,6 +4,8 @@ import { BarChart } from "react-native-gifted-charts";
 import { SIZES, COLORS } from "../../../constants";
 import { useRestore } from "../../../hooks/useRestore";
 
+import { styles } from "./graph.style";
+
 const Graph = ({ selectedValue }) => {
   const { fetchSalesData, salesData } = useRestore();
   const [graphData, setGraphData] = useState([]);
@@ -125,27 +127,6 @@ const Graph = ({ selectedValue }) => {
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: "center",
-    width: SIZES.width * 0.9,
-    height: 'auto',
-    justifyContent: "center",
-    marginHorizontal: 10,
-    overflow: "hidden",
-  },
-  graphContainer: {
-    width: SIZES.width * 0.9,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  loadingContainer: {
-    width: "100%",
-    height: "100%",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-});
+
 
 export default Graph;

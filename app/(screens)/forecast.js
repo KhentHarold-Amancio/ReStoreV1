@@ -18,18 +18,19 @@ import styles from "../../components/commons/header/styles/header.style";
 
 const ForecastView = () => {
   const router = useRouter();
-  const { fetchSalesData, salesData, forecastData, isLoading } = useRestore();
+  const { fetchSalesData, fetchForecastData, salesData, forecastData, isLoading } = useRestore();
 
   useEffect(() => {
     const fetch = async () => {
       await fetchSalesData();
+      await fetchForecastData();
     };
     fetch();
   }, []);
 
   useEffect(() => {
-    console.log("Sales Data:", salesData);
-  }, [salesData]);
+    console.log("Forecast Data:", forecastData);
+  }, [forecastData]);
   
   return (
       <SafeAreaView style={{ backgroundColor: COLORS.gray }}>

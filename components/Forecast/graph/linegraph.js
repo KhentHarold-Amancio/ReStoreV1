@@ -3,110 +3,108 @@ import { Dimensions, StyleSheet, Text, View } from "react-native";
 import { LineChart } from "react-native-gifted-charts";
 import { Avatar, ActivityIndicator } from "react-native-paper";
 import { COLORS, SIZES } from "../../../constants";
+import { useRestore } from "../../../hooks/useRestore";
+import { styles } from "./linegraph.style";
+import { max } from "moment";
+import { get } from "react-native/Libraries/TurboModule/TurboModuleRegistry";
 
 const { width } = Dimensions.get("window");
-const cardWidth = width * 0.9; // Adjusted to 90% of the screen width
+const cardWidth = width * 0.9;
 
-const LineGraph = ({ forecastData, salesData, isLoading }) => {
+const LineGraph = () => {
   const [graphData, setGraphData] = useState([]);
-  const [predictionData, setPredictionData] = useState([]);
-  const lineData = [
-    { value: 4255, label: "February", labelTextStyle: { color: COLORS.gray3 }, labelWidth: 50 },
-    { value: 1234, label: "March", labelTextStyle: { color: COLORS.gray3 }, labelWidth: 50 },
-    { value: 3214, label: "April", labelTextStyle: { color: COLORS.gray3 }, labelWidth: 50 },
-    { value: 4000, label: "April", labelTextStyle: { color: COLORS.gray3 }, labelWidth: 50 },
-  ];
+  const { fetchLineGraphData, lineGraphData } = useRestore();
+  const [isLoading, setIsLoading] = useState(false);
+  const [maxValue, setMaxValue] = useState(10000);
+  const [error, setError] = useState(null);
+
+  const handleFetchData = () => {
+    fetchLineGraphData();
+    console.log("Line Graph Data:", lineGraphData);
+  };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      setIsLoading(true);
+      try {
+        setMaxValue(lineGraphData["max_value"]);
+        handleFetchData();
+        getData();
+        setError(null);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+        setError(error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    fetchData();
+  }, []);
 
   useEffect(() => {
     getData();
-  }, []);
-
-  // useEffect(() => {
-  //   getData();
-  //   console.log("Sales Data:", salesData['monthly_sales_data'][0].Sales)
-  // }, [salesData]);
+  }, [lineGraphData]);
 
   const getData = async () => {
-    if (isLoading || !salesData) return;
+    if (isLoading || !lineGraphData) {
+      return;
+    }
 
-    const processData = (data, labelFormat) => {
+    const processData = (data) => {
       if (!data) return [];
 
-      return data.slice(-3).map((item) => ({
-        value: item['Sales'],
-        label: new Date(item.Month + "-01").toLocaleString(
-          "default",
-          labelFormat
-        ),
+      return data.map((item) => ({
+        value: item.Sales,
+        label: new Date(item.Month).toLocaleString("en-US", {
+          month: 'short',
+        }),
         labelTextStyle: { color: COLORS.gray3 },
       }));
     };
-    
-    const processForecastData = (forecastData, labelFormat) => {
-      if (!forecastData) return [];
-      return [
-        {
-          value: forecastData.prediction,
-          label: new Date(forecastData.next_month + "-01").toLocaleString("default", labelFormat),
-          labelTextStyle: { color: COLORS.gray3 },
-        },
-      ];
-    };
+
+    setIsLoading(true);
     try {
-      let processedData;
-      console.log("Gross Data:", salesData['monthly_sales_data']);
-      processedData = processData(salesData['monthly_sales_data'], {
-        month: "short",
-      });
-      let processedForecastData;
-      console.log("Gross Data:", salesData['monthly_sales_data']);
-      processedForecastData = processForecastData(salesData, {
-        month: "short",
-      });
-      setGraphData(processedData);
-      setPredictionData(processForecastData);
-      console.log("Processed Data:", graphData);
+      setGraphData(processData(lineGraphData["line_graph_data"]));
+      console.log(
+        "Processed Data:",
+        processData(lineGraphData["line_graph_data"])
+      );
+      setError(null);
     } catch (error) {
       console.error("Error processing data:", error);
+      setError(error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
-  const getRoundedMaxValue = (graphData, predictionData) => {
-    const combinedData = [...graphData, ...predictionData];
-    console.log(predictionData)
-    if (!Array.isArray(combinedData) || combinedData.length === 0) {
+  const getRoundedMaxValue = (data) => {
+    if (!Array.isArray(data) || data.length === 0) {
       return null;
     }
-  
-    const maxValue = combinedData.reduce(
+
+    const maxValue = data.reduce(
       (max, item) => (item.value > max ? item.value : max),
-      combinedData[0].value
+      data[0].value
     );
-  
     const roundedMaxValue = Math.ceil(maxValue / 100) * 100;
-    console.log("Max Value:", roundedMaxValue);
     return roundedMaxValue;
   };
 
   return (
     <View style={styles.container}>
       <View style={styles.graphContainer}>
-        {isLoading ? (
-          <View style={styles.loadingContainer}>
-            <ActivityIndicator color={COLORS.primary} size={"small"} />
-          </View>
-        ) : (
-          <LineChart
-            data={lineData}
+      <LineChart
+            data={graphData}
             startIndex={0}
             endIndex={2}
             color1={COLORS.primary}
-            data2={lineData}
+            data2={graphData}
             startIndex2={2}
             endIndex2={3}
             color2={COLORS.quaternary}
             stepHeight={38}
-            maxValue={getRoundedMaxValue(graphData, predictionData)}
+            maxValue={graphData.length > 0 ? getRoundedMaxValue(graphData) : 10000}
             noOfSections={4}
             initialSpacing={10}
             spacing={95}
@@ -129,12 +127,10 @@ const LineGraph = ({ forecastData, salesData, isLoading }) => {
             yAxisColor={COLORS.white}
             xAxisColor={COLORS.white}
             dashGap={20}
-            width={cardWidth}
+            // rotateLabel
           />
-        )}
-        
       </View>
-      <View style={styles.legendContainer}>
+      {/* <View style={styles.legendContainer}>
         <View style={styles.legendItem}>
           <Avatar.Icon size={10} backgroundColor={COLORS.primary} />
           <Text style={styles.legendText}>Actual Sales</Text>
@@ -143,47 +139,9 @@ const LineGraph = ({ forecastData, salesData, isLoading }) => {
           <Avatar.Icon size={10} backgroundColor={COLORS.quaternary} />
           <Text style={styles.legendText}>Forecast</Text>
         </View>
-      </View>
+      </View> */}
     </View>
   );
 };
 
 export default LineGraph;
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: "center",
-    width: SIZES.width,
-    height: "auto",
-    justifyContent: "center",
-    marginHorizontal: 50,
-    alignContent: "center",
-    overflow: "hidden",
-  },
-  graphContainer: {
-    width: "95%",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  legendContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    marginVertical: 15,
-  },
-  legendItem: {
-    flexDirection: "row",
-    alignItems: "center",
-    marginRight: 20,
-  },
-  legendText: {
-    marginLeft: 10,
-    color: COLORS.white,
-  },
-  loadingContainer: {
-    width: "100%",
-    height: "100%",
-    justifyContent: "center",
-    alignItems: "center",
-  }
-});
