@@ -5,8 +5,6 @@ import { Avatar, ActivityIndicator } from "react-native-paper";
 import { COLORS, SIZES } from "../../../constants";
 import { useRestore } from "../../../hooks/useRestore";
 import { styles } from "./linegraph.style";
-import { max } from "moment";
-import { get } from "react-native/Libraries/TurboModule/TurboModuleRegistry";
 
 const { width } = Dimensions.get("window");
 const cardWidth = width * 0.9;
