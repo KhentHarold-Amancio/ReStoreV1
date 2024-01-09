@@ -128,7 +128,7 @@ const LineGraph = () => {
             // rotateLabel
           />
       </View>
-      {/* <View style={styles.legendContainer}>
+      <View style={styles.legendContainer}>
         <View style={styles.legendItem}>
           <Avatar.Icon size={10} backgroundColor={COLORS.primary} />
           <Text style={styles.legendText}>Actual Sales</Text>
@@ -137,7 +137,7 @@ const LineGraph = () => {
           <Avatar.Icon size={10} backgroundColor={COLORS.quaternary} />
           <Text style={styles.legendText}>Forecast</Text>
         </View>
-      </View> */}
+      </View> 
     </View>
   );
 };
