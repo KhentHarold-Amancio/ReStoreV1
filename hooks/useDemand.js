@@ -6,7 +6,7 @@ export function useDemand() {
   const [isLoadingDemand, setIsLoadingDemand] = useState(false);
   const [prodData, setProdData] = useState([]);
   const [error, setError] = useState(null);
-  const [jsonData, setJsonData] = useState(null);
+  const [jsonData, setJsonData] = useState([]);
 
   const uploadFile = async (file) => {
     const formData = new FormData();
@@ -30,7 +30,7 @@ export function useDemand() {
   const fetchProdData = async () => {
     try {
       const response = await axios.get(`${SERVER_URL}predict_demand`);
-      if(response){
+      if (response) {
         setProdData(response.data);
         setIsLoadingDemand(false);
       }
@@ -38,44 +38,27 @@ export function useDemand() {
       setError(error);
     } finally {
       setIsLoadingDemand(false);
-      console.log("API Response:",data);
-      console.log("Data fetched successfully.")
-      console.log("Fetched demand data: ", prodData)
+      console.log("Data fetched successfully.");
+      console.log("Fetched demand data: ", prodData);
     }
   };
 
-  const fetchJsonData = async () => {
-    try {
-      setIsLoadingDemand(true); // Set loading state to true while fetching data
-      const response = await axios.get(`${SERVER_URL}get_json_data`); // Ensure URL is correct
-      setJsonData(response.data); // Update the jsonData state with the fetched data
-      setIsLoadingDemand(false); // Set loading state to false after fetching data
-    } catch (error) {
-      setError(error); // Set error state if an error occurs
-      setIsLoadingDemand(false); // Set loading state to false if an error occurs
-    }
-  };
-
-  // useEffect hook to fetch JSON data when the component mounts
-  useEffect(() => {
-    fetchJsonData();
   const fetchDemandData = async () => {
     setIsLoadingDemand(true);
-    try{
+    try {
       await fetchProdData();
-    } catch (error){
+    } catch (error) {
       setError(error);
     } finally {
       setIsLoadingDemand(false);
     }
-  }
+  };
 
   useEffect(() => {
     fetchDemandData().then(() => {
-      console.log("Fetching data.")
-    })
+      console.log("Fetching data.");
+    });
   }, []);
-
 
   const refetch = () => {
     setIsLoadingDemand(true);
@@ -84,6 +67,25 @@ export function useDemand() {
       console.log("Refetched data");
     });
   };
+
+  const fetchJsonData = async () => {
+    try {
+      const response = await axios.get(`${SERVER_URL}get_json_data`);
+      if(response)
+        setJsonData(response.data);
+        setIsLoadingDemand(false);
+        console.log("Data fetched successfully.");
+    } catch (error) {
+      setError(error);
+      setIsLoadingDemand(false);
+    } finally {
+      setIsLoadingDemand(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchJsonData();
+  }, []);
 
   return {
     fetchProdData,

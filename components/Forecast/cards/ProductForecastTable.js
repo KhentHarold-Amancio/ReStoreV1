@@ -29,7 +29,7 @@ const ForecastTable = ({ prodData, isLoadingDemand }) => {
             <DataTable.Title numeric textStyle={styles.titleStyle}>
               Product Name
             </DataTable.Title>
-            <DataTable.Title numeric textStyle={styles.titleStyle}>
+            <DataTable.Title numeric textStyle={styles.titleStyle} numberOfLines={2}>
               Projected Demand
             </DataTable.Title>
           </DataTable.Header>
@@ -53,7 +53,7 @@ const ForecastTable = ({ prodData, isLoadingDemand }) => {
                             <DataTable.Cell textStyle={styles.textStyle}>
                               {data.Product}
                             </DataTable.Cell>
-                            <DataTable.Cell textStyle={styles.textStyle}>
+                            <DataTable.Cell textStyle={styles.textStyle} style={{justifyContent: "flex-end"}}>
                               {data.UnitsSold}
                             </DataTable.Cell>
                           </DataTable.Row>
@@ -102,7 +102,7 @@ const styles = StyleSheet.create({
   textStyle: {
     color: COLORS.white,
     fontFamily: FONT.regular,
-    justifyContent: "space-between",
+    justifyContent: "flex-end",
     alignItems: 'center',
     fontSize: SIZES.small,
   },

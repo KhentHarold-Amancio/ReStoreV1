@@ -2,6 +2,8 @@ import { View, Text, ScrollView, SafeAreaView } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { Stack, useRouter } from "expo-router";
 import { useRestore } from '../../hooks/useRestore';
+import axios from "axios";
+import { SERVER_URL } from "../../constants";
 
 import ForecastSaleCard from '../../components/Forecast/cards/ForecastSaleCard'
 import Overview from '../../components/commons/overview/Overview';
@@ -21,14 +23,14 @@ import { useDemand } from "../../hooks/useDemand";
 const ForecastView = () => {
   const router = useRouter();
   const { fetchSalesData, fetchForecastData, salesData, forecastData, isLoading } = useRestore();
-  const { fetchProdData, prodData, isLoadingDemand } = useDemand()
-  const [jsonData, setJsonData] = useState(null);
+  const { fetchProdData, fetchJsonData, prodData, isLoadingDemand, jsonData } = useDemand()
 
     useEffect(() => {
     const fetch = async () => {
       await fetchSalesData();
       await fetchForecastData();
       await fetchProdData();
+      await fetchJsonData();
     };
     fetch().then(() => {
         console.log("Fetching done.")
@@ -40,29 +42,8 @@ const ForecastView = () => {
   useEffect(() => {
     console.log("Forecast Data:", forecastData);
     console.log("Product Demand Data:", prodData);
-  }, [forecastData]);
-
-  const fetchJsonData = async () => {
-    try {
-      const response = await axios.get(`${SERVER_URL}get_json_data`);
-      setJsonData(response.data);
-    } catch (error) {
-      console.error("Error fetching JSON data:", error);
-    }
-  };
-
-  useEffect(() => {
-    const fetch = async () => {
-      await fetchSalesData();
-      await fetchForecastData();
-      await fetchJsonData();
-    };
-    fetch();
-  }, []);
-
-  useEffect(() => {
-    console.log("Forecast Data:", forecastData);
-  }, [forecastData]);
+    console.log("JSON DATA:", jsonData);
+  }, [forecastData, jsonData]);
   
   return (
       <SafeAreaView style={{ backgroundColor: COLORS.gray }}>
@@ -90,8 +71,8 @@ const ForecastView = () => {
         <Overview />
         <ForecastGraph forecastData={forecastData} isLoading={isLoading} salesData={salesData} />
         <ForecastTable forecastData={forecastData} isLoading={isLoading}  />
-          <ProductForecastTable prodData={prodData} isLoadingDemand={isLoadingDemand} />
-        <ExportButton jsonData={jsonData} />
+        <ProductForecastTable prodData={prodData} isLoadingDemand={isLoadingDemand} />
+        <ExportButton />
       </ScrollView>
       </SafeAreaView>
   )
