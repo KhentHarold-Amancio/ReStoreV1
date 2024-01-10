@@ -19,7 +19,8 @@ import { COLORS, images, FONT, SIZES } from "../../constants";
 import HeaderText from "../../components/commons/header/headerText";
 import HeaderLogo from "../../components/commons/header/headerLogo";
 import Ionicons from "react-native-vector-icons/Ionicons";
-import {ImportButton, ImportButtonDemands} from "../../components/Settings/Buttons/ImportButton";
+import ImportButton from "../../components/Settings/Buttons/ImportButton";
+import ImportButtonDemands from "../../components/Settings/Buttons/ImportButtonDemands";
 import { useRestore } from "../../hooks/useRestore";
 
 function MyCheckbox() {
