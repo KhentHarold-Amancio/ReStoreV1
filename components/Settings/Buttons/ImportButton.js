@@ -43,7 +43,7 @@ const ImportButton = () => {
   return (
     <TouchableOpacity onPress={importFile} style={styles.container}>
       <View style={styles.buttonStyle}>
-        <Text style={styles.textProperty}>Import File</Text>
+        <Text style={styles.textProperty}>Import Sales File</Text>
         <Snackbar
           visible={isSnackbarVisible}
           onDismiss={dismissSnackbar}
@@ -65,7 +65,7 @@ const styles = StyleSheet.create({
   container: {
     justifyContent: "center",
     alignItems: "center",
-    bottom: 0,
+    bottom: 66,
     position: "absolute",
     width: SIZES.width,
   },

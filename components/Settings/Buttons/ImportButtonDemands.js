@@ -43,7 +43,7 @@ const ImportButton = () => {
   return (
     <TouchableOpacity onPress={importFile} style={styles.container}>
       <View style={styles.buttonStyle}>
-        <Text style={styles.textProperty}>Import File</Text>
+        <Text style={styles.textProperty}>Import Products File</Text>
         <Snackbar
           visible={isSnackbarVisible}
           onDismiss={dismissSnackbar}

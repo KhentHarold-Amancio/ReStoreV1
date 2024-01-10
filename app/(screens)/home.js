@@ -17,6 +17,8 @@ import styles from "../../components/commons/header/styles/header.style";
 import SummaryCard from "../../components/Homes/cards/SummaryCard";
 import ForecastSaleCard from "../../components/Forecast/cards/ForecastSaleCard";
 import SaleSummaryCard from "../../components/Sales/cards/SaleSummaryCard";
+import ImportButtonDemands from "../../components/Settings/Buttons/ImportButtonDemands";
+import ImportButton from "../../components/Settings/Buttons/ImportButton";
 
 const HomeView = () => {
   const router = useRouter();
@@ -58,6 +60,11 @@ const HomeView = () => {
           Summary
         </Text>
         <SummaryCard />
+        <View style={{
+            marginBottom: 130,
+        }}/>
+        <ImportButton/>
+        <ImportButtonDemands/>
       </ScrollView>
     </Layout>
   );
