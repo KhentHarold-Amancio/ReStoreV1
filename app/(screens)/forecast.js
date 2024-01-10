@@ -15,25 +15,34 @@ import { MaterialIcons } from "@expo/vector-icons";
 
 import { COLORS, images, FONT } from "../../constants";
 import styles from "../../components/commons/header/styles/header.style";
+import ProductForecastTable from "../../components/Forecast/cards/ProductForecastTable";
+import { useDemand } from "../../hooks/useDemand";
 
 const ForecastView = () => {
   const router = useRouter();
-  const { fetchSalesData, salesData, forecastData, isLoading } = useRestore();
+  const { fetchSalesData, fetchForecastData, salesData, forecastData, isLoading } = useRestore();
+  const { fetchProdData, prodData, isLoadingDemand } = useDemand()
 
-  useEffect(() => {
+    useEffect(() => {
     const fetch = async () => {
       await fetchSalesData();
+      await fetchForecastData();
+      await fetchProdData();
     };
-    fetch();
+    fetch().then(() => {
+        console.log("Fetching done.")
+    }).catch((error) => {
+        console.log("Fetching wasn't done due to following errors: ", error)
+    });
   }, []);
 
   useEffect(() => {
-    console.log("Sales Data:", salesData);
-  }, [salesData]);
+    console.log("Forecast Data:", forecastData);
+    console.log("Product Demand Data:", prodData);
+  }, [forecastData]);
   
   return (
       <SafeAreaView style={{ backgroundColor: COLORS.gray }}>
-
       <ScrollView style={{ marginTop: -5 }}>
       <Stack.Screen
         options={{
@@ -58,6 +67,7 @@ const ForecastView = () => {
         <Overview />
         <ForecastGraph forecastData={forecastData} isLoading={isLoading} salesData={salesData} />
         <ForecastTable forecastData={forecastData} isLoading={isLoading}  />
+          <ProductForecastTable prodData={prodData} isLoadingDemand={isLoadingDemand} />
         <ExportButton/>
       </ScrollView>
       </SafeAreaView>

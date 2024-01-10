@@ -3,10 +3,8 @@ import { SERVER_URL } from "../constants";
 import axios from "axios";
 
 export function useDemand() {
-  const [isLoading, setIsLoading] = useState(false);
-  const [ProdName, setProdName] = useState([]);
-  const [ProdID, setProdID] = useState([]);
-  const [ProdDemand, setProdDemand] = useState([]);
+  const [isLoadingDemand, setIsLoadingDemand] = useState(false);
+  const [prodData, setProdData] = useState([]);
   const [error, setError] = useState(null);
 
   const uploadFile = async (file) => {
@@ -17,7 +15,7 @@ export function useDemand() {
       name: file.name,
     });
     try {
-      const response = await axios.post(`${SERVER_URL}upload`, formData, {
+      const response = await axios.post(`${SERVER_URL}upload_demand`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
@@ -27,49 +25,44 @@ export function useDemand() {
     }
   };
 
-  const fetchProdID = async () => {
+  let data;
+
+  const fetchProdData = async () => {
     try {
-      const response = await axios.get(`${SERVER_URL}predict`);
-      setProdID(response.data);
+      const response = await axios.get(`${SERVER_URL}predict_demand`);
+      setProdData(response.data);
+      data = response.data;
     } catch (error) {
       setError(error);
+    } finally {
+      setIsLoadingDemand(true);
+      console.log("API Response:",data);
+      console.log("Data fetched successfully.")
+      console.log("Fetched demand data: ", prodData)
     }
   };
 
-  const fetchProdName = async () => {
-    try {
-      const response = await axios.get(`${SERVER_URL}predict`);
-      setProdName(response.data);
-    } catch (error) {
-      setError(error);
-    }
-  };
 
-  const fetchDemand = async () => {
-    try {
-      const response = await axios.get(`${SERVER_URL}predict`);
-      setDemand(response.data);
-    } catch (error) {
-      setError(error);
-    }
-  };
 
   useEffect(() => {
-    fetchData();
+    fetchProdData().then(() => {
+      console.log("Fetching data.")
+    })
   }, []);
 
   const refetch = () => {
-    setIsLoading(true);
+    fetchProdData().then(() => {
+      console.log("Refetched data");
+    });
+    setIsLoadingDemand(true);
     setError(null);
-    fetchData();
   };
 
   return {
-    fetchProdName,
-    ProdName,
-    isLoading,
+    fetchProdData,
+    prodData,
+    isLoadingDemand,
     error,
-    uploadFile,
     refetch,
   };
 }
