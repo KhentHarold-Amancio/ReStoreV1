@@ -21,19 +21,11 @@ import { useDemand } from "../../hooks/useDemand";
 const ForecastView = () => {
   const router = useRouter();
   const { fetchSalesData, fetchForecastData, salesData, forecastData, isLoading } = useRestore();
-<<<<<<< HEAD
-  const { fetchProdData, prodData, isLoadingDemand } = useDemand()
-=======
->>>>>>> e0928517fa6a1a08975f1a61ff846b9d5e2a6e53
 
     useEffect(() => {
     const fetch = async () => {
       await fetchSalesData();
       await fetchForecastData();
-<<<<<<< HEAD
-      await fetchProdData();
-=======
->>>>>>> e0928517fa6a1a08975f1a61ff846b9d5e2a6e53
     };
     fetch().then(() => {
         console.log("Fetching done.")
@@ -44,10 +36,6 @@ const ForecastView = () => {
 
   useEffect(() => {
     console.log("Forecast Data:", forecastData);
-<<<<<<< HEAD
-    console.log("Product Demand Data:", prodData);
-=======
->>>>>>> e0928517fa6a1a08975f1a61ff846b9d5e2a6e53
   }, [forecastData]);
   
   return (
