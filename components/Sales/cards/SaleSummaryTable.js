@@ -42,7 +42,7 @@ const SaleSummaryTable = () => {
           { fontFamily: FONT.regular, fontSize: SIZES.small, marginTop: -10 },
         ]}
         right={() => (
-          <TouchableOpacity onPress={() => router.push('/performance')}>
+          <TouchableOpacity onPress={() => router.push('/performance')} style={{ padding: 10}}>
             <View style={styles.viewDetails}>
               <Text
                 style={[

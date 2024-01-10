@@ -7,7 +7,9 @@ export function useRestore() {
   const [grossData, setGrossData] = useState([]);
   const [salesPerformanceData, setSalesPerformanceData] = useState([]);
   const [forecastData, setForecastData] = useState([]);
+  const [lineGraphData, setLineGraphData] = useState([]);
   const [salesData, setSalesData] = useState([]);
+  
   const [error, setError] = useState(null);
 
   const uploadFile = async (file) => {
@@ -33,8 +35,10 @@ export function useRestore() {
     setIsLoading(true);
     try {
       const response = await axios.get(`${SERVER_URL}predict`);
-      setForecastData(response.data);
-      setIsLoading(false);
+      if (response) {
+        setForecastData(response.data);
+        setIsLoading(false);
+      }
     } catch (error) {
       setError(error);
     } finally {
@@ -85,12 +89,25 @@ export function useRestore() {
     }
   };
 
-  
+  const fetchLineGraphData = async () => {
+    setIsLoading(true);
+    try {
+      const response = await axios.get(`${SERVER_URL}line_graph_data`);
+      setLineGraphData(response.data);
+      setIsLoading(false);
+    } catch (error) {
+      setError(error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   const fetchData = async () => {
     setIsLoading(true);
     try {
       await fetchForecastData();
       await fetchGrossData();
+      await fetchLineGraphData();
     } catch (error) {
       setError(error);
     } finally {
@@ -113,6 +130,7 @@ export function useRestore() {
     forecastData,
     salesPerformanceData,
     salesData,
+    lineGraphData,
     isLoading,
     error,
     fetchData,
@@ -120,6 +138,7 @@ export function useRestore() {
     fetchSalesPerformanceData,
     fetchForecastData,
     fetchSalesData,
+    fetchLineGraphData,
     refetch,
   };
 }

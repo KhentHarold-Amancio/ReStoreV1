@@ -7,7 +7,7 @@ import styles from "./styles/Summary.style";
 import { useRestore } from "../../../hooks/useRestore";
 
 const SummaryCard = () => {
-  const { fetchData, isLoading, forecastData, grossData, refetch } =
+  const { fetchData, isLoading, forecastData, grossData } =
     useRestore();
     
   const handleFetchData = () => {

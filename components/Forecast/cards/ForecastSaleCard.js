@@ -74,3 +74,4 @@ const ForecastSaleCard = ({ onPress }) => {
 };
 
 export default ForecastSaleCard;
+

@@ -21,7 +21,6 @@ import SaleSummaryCard from "../../components/Sales/cards/SaleSummaryCard";
 const HomeView = () => {
   const router = useRouter();
   
-
   return (
     <Layout style={{ flex: 1, backgroundColor: COLORS.gray }}>
       <Stack.Screen
