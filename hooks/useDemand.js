@@ -6,6 +6,7 @@ export function useDemand() {
   const [isLoadingDemand, setIsLoadingDemand] = useState(false);
   const [prodData, setProdData] = useState([]);
   const [error, setError] = useState(null);
+  const [jsonData, setJsonData] = useState(null);
 
   const uploadFile = async (file) => {
     const formData = new FormData();
@@ -42,13 +43,23 @@ export function useDemand() {
     }
   };
 
+  const fetchJsonData = async () => {
+    try {
+      setIsLoadingDemand(true); // Set loading state to true while fetching data
+      const response = await axios.get(`${SERVER_URL}get_json_data`); // Ensure URL is correct
+      setJsonData(response.data); // Update the jsonData state with the fetched data
+      setIsLoadingDemand(false); // Set loading state to false after fetching data
+    } catch (error) {
+      setError(error); // Set error state if an error occurs
+      setIsLoadingDemand(false); // Set loading state to false if an error occurs
+    }
+  };
 
-
+  // useEffect hook to fetch JSON data when the component mounts
   useEffect(() => {
-    fetchProdData().then(() => {
-      console.log("Fetching data.")
-    })
+    fetchJsonData();
   }, []);
+
 
   const refetch = () => {
     fetchProdData().then(() => {
@@ -64,5 +75,7 @@ export function useDemand() {
     isLoadingDemand,
     error,
     refetch,
+    jsonData,
+    fetchJsonData,
   };
 }

@@ -22,6 +22,7 @@ const ForecastView = () => {
   const router = useRouter();
   const { fetchSalesData, fetchForecastData, salesData, forecastData, isLoading } = useRestore();
   const { fetchProdData, prodData, isLoadingDemand } = useDemand()
+  const [jsonData, setJsonData] = useState(null);
 
     useEffect(() => {
     const fetch = async () => {
@@ -39,6 +40,28 @@ const ForecastView = () => {
   useEffect(() => {
     console.log("Forecast Data:", forecastData);
     console.log("Product Demand Data:", prodData);
+  }, [forecastData]);
+
+  const fetchJsonData = async () => {
+    try {
+      const response = await axios.get(`${SERVER_URL}get_json_data`);
+      setJsonData(response.data);
+    } catch (error) {
+      console.error("Error fetching JSON data:", error);
+    }
+  };
+
+  useEffect(() => {
+    const fetch = async () => {
+      await fetchSalesData();
+      await fetchForecastData();
+      await fetchJsonData();
+    };
+    fetch();
+  }, []);
+
+  useEffect(() => {
+    console.log("Forecast Data:", forecastData);
   }, [forecastData]);
   
   return (
@@ -68,7 +91,7 @@ const ForecastView = () => {
         <ForecastGraph forecastData={forecastData} isLoading={isLoading} salesData={salesData} />
         <ForecastTable forecastData={forecastData} isLoading={isLoading}  />
           <ProductForecastTable prodData={prodData} isLoadingDemand={isLoadingDemand} />
-        <ExportButton/>
+        <ExportButton jsonData={jsonData} />
       </ScrollView>
       </SafeAreaView>
   )
