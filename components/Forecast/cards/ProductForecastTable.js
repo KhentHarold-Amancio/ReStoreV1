@@ -102,7 +102,7 @@ const styles = StyleSheet.create({
   textStyle: {
     color: COLORS.white,
     fontFamily: FONT.regular,
-    justifyContent: "space-between",
+    justifyContent: "center",
     alignItems: 'center',
     fontSize: SIZES.small,
   },
