@@ -7,6 +7,9 @@ import CustomDivider from "../../divider/customdivider";
 
 
 const ForecastTable = ({ prodData, isLoadingDemand }) => {
+
+  console.log("Demand data on Product Forecast Table:", prodData);
+
   return (
     <Card style={styles.container}>
       <Card.Title
@@ -31,7 +34,7 @@ const ForecastTable = ({ prodData, isLoadingDemand }) => {
             </DataTable.Title>
           </DataTable.Header>
             {
-              isLoadingDemand ? (
+              isLoadingDemand || !prodData ? (
                 <View style={styles.loadingContainer}>
                   <ActivityIndicator color={COLORS.primary} size={"small"} />
                 </View>

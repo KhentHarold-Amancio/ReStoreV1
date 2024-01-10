@@ -21,22 +21,23 @@ export function useDemand() {
           "Content-Type": "multipart/form-data",
         },
       });
+      refetch();
     } catch (error) {
       console.error("Error uploading file:", error);
     }
   };
 
-  let data;
-
   const fetchProdData = async () => {
     try {
       const response = await axios.get(`${SERVER_URL}predict_demand`);
-      setProdData(response.data);
-      data = response.data;
+      if(response){
+        setProdData(response.data);
+        setIsLoadingDemand(false);
+      }
     } catch (error) {
       setError(error);
     } finally {
-      setIsLoadingDemand(true);
+      setIsLoadingDemand(false);
       console.log("API Response:",data);
       console.log("Data fetched successfully.")
       console.log("Fetched demand data: ", prodData)
@@ -58,15 +59,30 @@ export function useDemand() {
   // useEffect hook to fetch JSON data when the component mounts
   useEffect(() => {
     fetchJsonData();
+  const fetchDemandData = async () => {
+    setIsLoadingDemand(true);
+    try{
+      await fetchProdData();
+    } catch (error){
+      setError(error);
+    } finally {
+      setIsLoadingDemand(false);
+    }
+  }
+
+  useEffect(() => {
+    fetchDemandData().then(() => {
+      console.log("Fetching data.")
+    })
   }, []);
 
 
   const refetch = () => {
-    fetchProdData().then(() => {
-      console.log("Refetched data");
-    });
     setIsLoadingDemand(true);
     setError(null);
+    fetchDemandData().then(() => {
+      console.log("Refetched data");
+    });
   };
 
   return {
