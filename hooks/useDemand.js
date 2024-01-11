@@ -93,6 +93,7 @@ export function useDemand() {
     isLoadingDemand,
     error,
     refetch,
+    uploadFile,
     jsonData,
     fetchJsonData,
   };

@@ -6,7 +6,7 @@ import { useRestore } from "../../../hooks/useRestore";
 import { COLORS, FONT, SIZES } from "../../../constants";
 
 const ImportButton = () => {
-  const { uploadFile } = useRestore();
+  const { uploadFile, refetch } = useRestore();
   const [isSnackbarVisible, setSnackbarVisible] = useState(false);
   const [isErrorSnackbarVisible, setErrorSnackbarVisible] = useState(false);
 
@@ -37,11 +37,13 @@ const ImportButton = () => {
       }
     } catch (documentPickerError) {
       toggleErrorSnackbar();
+    } finally {
+      refetch();
     }
   };
 
   return (
-    <TouchableOpacity onPress={importFile} style={styles.container}>
+    <TouchableOpacity onPress={ importFile } style={styles.container}>
       <View style={styles.buttonStyle}>
         <Text style={styles.textProperty}>Import Sales File</Text>
         <Snackbar

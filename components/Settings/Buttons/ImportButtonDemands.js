@@ -4,9 +4,10 @@ import { Snackbar } from 'react-native-paper';
 import * as DocumentPicker from "expo-document-picker";
 import { useRestore } from "../../../hooks/useRestore";
 import { COLORS, FONT, SIZES } from "../../../constants";
+import { useDemand } from "../../../hooks/useDemand";
 
 const ImportButton = () => {
-  const { uploadFile } = useRestore();
+  const { uploadFile } = useDemand();
   const [isSnackbarVisible, setSnackbarVisible] = useState(false);
   const [isErrorSnackbarVisible, setErrorSnackbarVisible] = useState(false);
 
