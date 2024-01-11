@@ -19,6 +19,7 @@ import { COLORS, images, FONT } from "../../constants";
 import styles from "../../components/commons/header/styles/header.style";
 import ProductForecastTable from "../../components/Forecast/cards/ProductForecastTable";
 import { useDemand } from "../../hooks/useDemand";
+import ReloadButton from "../../components/Homes/cards/buttons/ReloadButton";
 
 const ForecastView = () => {
   const router = useRouter();
@@ -54,7 +55,7 @@ const ForecastView = () => {
           headerShadowVisible: false,
           headerRight: () => (
             <View style={styles.headerRightContainer}>
-              <HeaderLogo logoUrl={images.logo} />
+              <ReloadButton/>
             </View>
           ),
           headerTitle: <HeaderText headerTitle="Forecast" />,

@@ -37,8 +37,6 @@ const ImportButton = () => {
       }
     } catch (documentPickerError) {
       toggleErrorSnackbar();
-    } finally {
-      refetch();
     }
   };
 

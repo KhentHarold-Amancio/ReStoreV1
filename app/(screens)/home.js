@@ -19,6 +19,7 @@ import ForecastSaleCard from "../../components/Forecast/cards/ForecastSaleCard";
 import SaleSummaryCard from "../../components/Sales/cards/SaleSummaryCard";
 import ImportButtonDemands from "../../components/Settings/Buttons/ImportButtonDemands";
 import ImportButton from "../../components/Settings/Buttons/ImportButton";
+import ReloadButton from "../../components/Homes/cards/buttons/ReloadButton";
 
 const HomeView = () => {
   const router = useRouter();
@@ -31,7 +32,7 @@ const HomeView = () => {
           headerShadowVisible: false,
           headerRight: () => (
             <View style={styles.headerRightContainer}>
-              <HeaderLogo logoUrl={images.logo} />
+              <ReloadButton/>
             </View>
           ),
           headerTitle: <HeaderText headerTitle="Home" />,

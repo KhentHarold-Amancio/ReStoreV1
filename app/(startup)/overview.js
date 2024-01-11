@@ -8,7 +8,7 @@ import {
 import React, { useState, useEffect } from "react";
 import styles from "../../components/commons/overviewcontainer/styles/OverView.style";
 import { Stack, useRouter, useStack } from "expo-router";
-import { COLORS } from "../../constants";
+import {COLORS, SIZES} from "../../constants";
 import { Icon } from "@ui-kitten/components";
 import { SafeAreaView } from "react-native-safe-area-context";
 import AsyncStorage from '@react-native-async-storage/async-storage'; 

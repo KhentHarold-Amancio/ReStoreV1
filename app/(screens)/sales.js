@@ -13,6 +13,7 @@ import SaleSummaryGraph from "../../components/Sales/cards/SaleSummaryGraph";
 import SaleSummaryTable from "../../components/Sales/cards/SaleSummaryTable";
 import SummaryCard from "../../components/Homes/cards/SummaryCard";
 import { useRestore } from "../../hooks/useRestore";
+import ReloadButton from "../../components/Homes/cards/buttons/ReloadButton";
 
 const SalesView = () => {
   const router = useRouter();
@@ -32,7 +33,7 @@ const SalesView = () => {
             headerShadowVisible: false,
             headerRight: () => (
               <View style={styles.headerRightContainer}>
-                <HeaderLogo logoUrl={images.logo} />
+                <ReloadButton/>
               </View>
             ),
             headerTitle: <HeaderText headerTitle="Forecast" />,

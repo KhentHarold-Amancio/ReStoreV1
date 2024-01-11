@@ -5,7 +5,6 @@ import * as SplashScreen from "expo-splash-screen";
 import * as eva from "@eva-design/eva";
 import { ApplicationProvider, IconRegistry } from "@ui-kitten/components";
 import { EvaIconsPack } from "@ui-kitten/eva-icons";
-import Toast from 'react-native-toast-message';
 
 SplashScreen.preventAutoHideAsync();
 

@@ -21,7 +21,7 @@ export function useDemand() {
           "Content-Type": "multipart/form-data",
         },
       });
-      refetch();
+      doFetchDemand();
     } catch (error) {
       console.error("Error uploading file:", error);
     }
@@ -60,7 +60,7 @@ export function useDemand() {
     });
   }, []);
 
-  const refetch = () => {
+  const doFetchDemand = () => {
     setIsLoadingDemand(true);
     setError(null);
     fetchDemandData().then(() => {
@@ -92,7 +92,7 @@ export function useDemand() {
     prodData,
     isLoadingDemand,
     error,
-    refetch,
+    doFetchDemand,
     uploadFile,
     jsonData,
     fetchJsonData,

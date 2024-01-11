@@ -107,6 +107,8 @@ export function useRestore() {
     try {
       await fetchForecastData();
       await fetchGrossData();
+      await fetchSalesData();
+      await fetchSalesPerformanceData();
       await fetchLineGraphData();
     } catch (error) {
       setError(error);

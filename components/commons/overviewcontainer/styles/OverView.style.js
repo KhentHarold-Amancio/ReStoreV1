@@ -7,6 +7,7 @@ const styles = StyleSheet.create({
     height: SIZES.height * .9,
     justifyContent: 'center',
     alignContent: 'center',
+    width: SIZES.cardWidth
   },
   headerText: {
     fontSize: 45,
@@ -49,14 +50,14 @@ const styles = StyleSheet.create({
     marginRight: 40, // Add left margin for the text
   },
   checkboxContainer: {
-    width: SIZES.width * 0.8,
+    width: SIZES.width * 0.9,
     flexDirection: "row", // Arrange checkbox and text horizontally
     alignItems: "center", // Vertically center align them
     alignContent: "center",
     alignSelf: "center",
-    paddingRight: 20,
+    // paddingRight: 20,
     marginVertical: 10,
-    marginRight: 10,
+    // marginRight: 10,
   },
   checkbox: {
     width: 20,

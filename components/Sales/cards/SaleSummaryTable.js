@@ -20,7 +20,11 @@ const SaleSummaryTable = () => {
   const router = useRouter();
 
   const handleFetchData = async () => {
-    fetchSalesPerformanceData();
+    try {
+      await fetchSalesPerformanceData();
+    } catch (e) {
+      console.error("Error fetching sales performance data:", e);
+    }
   };
 
   useEffect(() => {
