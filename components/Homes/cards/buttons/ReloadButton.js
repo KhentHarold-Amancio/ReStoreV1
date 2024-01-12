@@ -4,6 +4,8 @@ import { useRestore } from "../../../../hooks/useRestore";
 import { COLORS } from "../../../../constants";
 import { Icon } from "@ui-kitten/components";
 import {useDemand} from "../../../../hooks/useDemand";
+import {Restart} from 'fiction-expo-restart';
+import { reloadAsync } from 'expo-updates';
 
 
 const ReloadButton = () => {
@@ -15,9 +17,8 @@ const ReloadButton = () => {
     );
 
     const refresh = () => {
-        refetch();
-        doFetchDemand();
-    }
+        reloadAsync().then(r => console.log('Restarting app...'));
+    };
 
     return (
         <TouchableOpacity onPress={refresh}>

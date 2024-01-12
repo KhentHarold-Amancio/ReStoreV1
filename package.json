@@ -28,6 +28,8 @@
     "expo-sharing": "^11.7.0",
     "expo-splash-screen": "~0.20.5",
     "expo-status-bar": "~1.6.0",
+    "expo-updates": "^0.18.19",
+    "fiction-expo-restart": "^2.0.0",
     "firebase": "^10.7.1",
     "moment": "^2.30.1",
     "papaparse": "^5.4.1",

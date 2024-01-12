@@ -7,10 +7,9 @@ import {
   SafeAreaView,
 } from "react-native";
 import { Stack, useRouter, useGlobalSearchParams } from "expo-router";
-import { Layout, Text, Icon } from "@ui-kitten/components";
+import { Layout, Text } from "@ui-kitten/components";
 
 import HeaderText from "../../components/commons/header/headerText";
-import HeaderLogo from "../../components/commons/header/headerLogo";
 
 import { COLORS, images, SIZES, FONT } from "../../constants";
 import styles from "../../components/commons/header/styles/header.style";
@@ -32,7 +31,7 @@ const HomeView = () => {
           headerShadowVisible: false,
           headerRight: () => (
             <View style={styles.headerRightContainer}>
-              <ReloadButton/>
+              <ReloadButton />
             </View>
           ),
           headerTitle: <HeaderText headerTitle="Home" />,

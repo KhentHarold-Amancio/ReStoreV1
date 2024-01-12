@@ -28,7 +28,7 @@
     "web": {
       "favicon": "./assets/logo.svg"
     },
-    "plugins": ["expo-router"],
+    "plugins": ["expo-router", "expo-updates"],
     "backgroundColor": "#353436" 
   }
 }
